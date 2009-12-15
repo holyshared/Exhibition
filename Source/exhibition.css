@@ -1,0 +1,66 @@
+@charset "utf-8";
+
+body {
+	background: #222222;
+}
+
+div#warpper {
+	width: 980px;
+}
+
+div#container {
+/*	overflow: hidden; */
+	width: 980px;
+	position: relative;
+}
+
+p.control {
+	padding-top: 30px;
+	text-align: center;
+}
+
+ul#g {
+	overflow: hidden;
+	width: 980px;
+	background: #222222;
+	list-style: none;
+	position: relative;
+}
+
+ul#g li {
+	float: left;
+	padding: 15px;
+	background: #333333;
+	position: absolute;
+}
+
+ul#g li a {
+	display: block;
+	border: 1px solid #cccccc;
+	width: 170px;
+}
+
+ul#g li a:hover {
+	border: 1px solid #99ffff;
+}
+
+
+
+canvas#left {
+	top: 0px;
+	z-index: 1;
+	position: absolute;
+	height: 272px;
+	width: 139px;
+/*	background: url(../images/left.png) repeat-y left top; */
+}
+
+canvas#right {
+	left: 841px;
+	top: 0px;
+	z-index: 1;
+	position: absolute;
+	height: 272px;
+	width: 139px;
+/*	background: url(../images/right.png) repeat-y left top; */
+}
