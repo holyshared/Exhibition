@@ -5,8 +5,8 @@ description: Element class, Elements class, and basic dom methods.
 license: MIT-style
 
 authors:
-- Jimmy Dean
-- Buck Kingsley
+- Noritaka Horio
+
 
 requires:
 - localComponent1
@@ -60,7 +60,7 @@ window.addEvent("domready", function(){
 
 	this.element = $("g");
 	this.elements = $(this.element).getElements("li");
-	this.tween =  {"duration": 1000, "transition": "expo:in:out"};
+	this.tween =  {"duration": 500, "transition": "back:in:out"};
 
 	maxWidth = $(this.element).getStyle("width").replace("px", "").toInt();
 
@@ -150,3 +150,36 @@ window.addEvent("domready", function(){
 	
 	
 });
+
+var Exhibition = new Class({
+	
+	Implements: [Events, Options],
+
+	options: {
+	},
+
+	initialize: function (container,sources,options) {
+		this.container	= container;
+		this.elements	= sources;
+		this.tween =  {"duration": 500, "transition": "back:in:out"};
+
+		var left = 0, width = 202, maxHeight = 0, baseTop = 0, maxWidth = 0;
+		var startLeft =  (maxWidth / 2) - (width / 2);
+//		this.elements[0].setStyle("left", startLeft);
+
+		left = startLeft;
+		this.elements.each(function(e,k) {
+			var y			= e.getPosition().y;
+			var height	= e.getSize().y;
+			if (maxHeight < height) {
+				maxHeight = height;
+				baseTop = height / 2;
+			}
+			e.setStyle("left", left);
+			left = left + width + 50;
+		});	
+	}
+
+});
+
+

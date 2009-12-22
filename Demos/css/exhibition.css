@@ -6,11 +6,13 @@ body {
 
 div#warpper {
 	width: 980px;
+	margin: 0px auto;
 }
 
 div#container {
 /*	overflow: hidden; */
 	width: 980px;
+	margin: 0px auto;
 	position: relative;
 }
 
@@ -44,10 +46,9 @@ ul#g li a:hover {
 	border: 1px solid #99ffff;
 }
 
-
-
 canvas#left {
 	top: 0px;
+	left: 0px;
 	z-index: 1;
 	position: absolute;
 	height: 272px;
