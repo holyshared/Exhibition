@@ -7,7 +7,6 @@ license: MIT-style
 authors:
 - Noritaka Horio
 
-
 requires:
 - localComponent1
 - [localComponent2, localComponent3]
@@ -15,13 +14,13 @@ requires:
 - externalPackage1:tag: component4
 - externalPackage2:tag: [component1, component2]
 
-provides: [Element, Elements, $, $$]
-
+provides: [Exhibition]
 ...
 */
 
 window.addEvent("domready", function(){
 
+/*
 	var canvasLeft = new Element("canvas", {"id": "left", "width": 139, "height":260}); 
 	var canvasRight = new Element("canvas", {"id": "right", "width": 139, "height":260}); 
 	canvasLeft.inject($("container"));
@@ -31,7 +30,6 @@ window.addEvent("domready", function(){
  	var ctx = canvasLeft.getContext("2d");
  	ctx.beginPath();
 
-// 	var grad  = ctx.createLinearGradient(0,0,139,0);
  	var grad  = ctx.createLinearGradient(0,0,100,0);
  	grad.addColorStop(0, "rgba(34, 34, 34, 1)");
  	grad.addColorStop(1, "rgba(34, 34, 34, 0)");
@@ -43,14 +41,13 @@ window.addEvent("domready", function(){
  	var ctx = canvasRight.getContext("2d");
  	ctx.beginPath();
 
-// 	var grad  = ctx.createLinearGradient(0,0,139,0);
  	var grad  = ctx.createLinearGradient(139,0,39,0);
  	grad.addColorStop(0, "rgba(34, 34, 34, 1)");
  	grad.addColorStop(1, "rgba(34, 34, 34, 0)");
  	ctx.fillStyle = grad;
  	ctx.rect(0,0,139,260);
  	ctx.fill();
-
+*/
 
 
 
@@ -60,7 +57,7 @@ window.addEvent("domready", function(){
 
 	this.element = $("g");
 	this.elements = $(this.element).getElements("li");
-	this.tween =  {"duration": 500, "transition": "back:in:out"};
+	this.tween =  {"duration": 600, "transition": "back:in:out"};
 
 	maxWidth = $(this.element).getStyle("width").replace("px", "").toInt();
 
