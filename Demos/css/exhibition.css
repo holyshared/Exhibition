@@ -1,17 +1,20 @@
 @charset "utf-8";
 
 body {
-	background: #222222;
+	background: url(../images/wall.jpg) no-repeat center bottom;
+	background-attachment: fixed;
+	height: 100%;
 }
 
 div#warpper {
-	width: 980px;
 	margin: 0px auto;
+	text-align: left;
 }
 
 div#container {
 /*	overflow: hidden; */
-	width: 980px;
+/*	width: 980px; */
+	text-align: left;
 	margin: 0px auto;
 	position: relative;
 }
@@ -23,8 +26,8 @@ p.control {
 
 ul#g {
 	overflow: hidden;
-	width: 980px;
-	background: #222222;
+/*	width: 980px; */
+/*	background: #222222; */
 	list-style: none;
 	position: relative;
 }
@@ -64,4 +67,8 @@ canvas#right {
 	height: 272px;
 	width: 139px;
 /*	background: url(../images/right.png) repeat-y left top; */
+}
+
+p#copyright {
+	text-align: center;
 }
