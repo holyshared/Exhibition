@@ -1,52 +1,35 @@
 @charset "utf-8";
 
-body {
-	background: url(../images/wall.jpg) no-repeat center bottom;
-	background-attachment: fixed;
-	height: 100%;
-}
 
-div#warpper {
-	margin: 0px auto;
-	text-align: left;
-}
-
-div#container {
-/*	overflow: hidden; */
-/*	width: 980px; */
-	text-align: left;
-	margin: 0px auto;
-	position: relative;
-}
 
 p.control {
 	padding-top: 30px;
 	text-align: center;
 }
 
-ul#g {
+ul#exhibition {
 	overflow: hidden;
-/*	width: 980px; */
-/*	background: #222222; */
 	list-style: none;
 	position: relative;
 }
 
-ul#g li {
+ul#exhibition li {
 	float: left;
-	padding: 15px;
-	background: #333333;
 	position: absolute;
 }
 
-ul#g li a {
+ul#exhibition li a {
 	display: block;
-	border: 1px solid #cccccc;
-	width: 170px;
+	padding: 15px;
+	background: #333333;
 }
 
-ul#g li a:hover {
-	border: 1px solid #99ffff;
+ul#exhibition li a:hover {
+	background: #3c94af;
+}
+
+ul#exhibition li.active a {
+	background: #3c94af;
 }
 
 canvas#left {
