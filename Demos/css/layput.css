@@ -83,3 +83,7 @@ dl#properties dd a {
 dl#properties dd a:hover {
 	color: #3c94af;
 }
+
+p#copyright {
+	text-align: right;
+}

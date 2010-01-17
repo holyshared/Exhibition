@@ -1,0 +1,31 @@
+@charset "utf-8";
+
+ul#exhibition {
+	overflow: hidden;
+	list-style: none;
+	position: relative;
+}
+
+ul#exhibition li {
+	float: left;
+	position: absolute;
+}
+
+ul#exhibition li a {
+	display: block;
+	padding: 15px;
+	background: #333333;
+}
+
+ul#exhibition li a:hover {
+	background: #3c94af;
+}
+
+ul#exhibition li.active a {
+	background: #3c94af;
+}
+
+p.control {
+	padding-top: 30px;
+	text-align: center;
+}

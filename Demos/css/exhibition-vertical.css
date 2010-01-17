@@ -1,0 +1,51 @@
+@charset "utf-8";
+
+div#container {
+	margin: 0px auto 0px auto;
+}
+
+ul#exhibition {
+	overflow: hidden;
+	list-style: none;
+	position: relative;
+	margin: 0px auto 0px 300px;
+}
+
+ul#exhibition li {
+	position: absolute;
+}
+
+ul#exhibition li a {
+	display: block;
+	padding: 10px;
+	background: #333333;
+}
+
+ul#exhibition li a:hover {
+	background: #3c94af;
+}
+
+ul#exhibition li.active a {
+	background: #3c94af;
+}
+
+
+p.control {
+	text-align: left;
+	position: absolute;
+	top: 50%;
+	left: 650px;
+	text-transform: uppercase;
+}
+
+p.control a#prev {
+	display: block;
+	background: #333333;
+	padding: 5px 15px;
+}
+
+p.control a#next {
+	display: block;
+	background: #333333;
+	padding: 5px 15px;
+}
