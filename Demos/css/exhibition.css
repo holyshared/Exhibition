@@ -28,6 +28,10 @@ ul#exhibition li a:hover {
 	background: #3c94af;
 }
 
+ul#exhibition li.active a {
+	background: #3c94af;
+}
+
 canvas#left {
 	top: 0px;
 	left: 0px;

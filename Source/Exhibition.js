@@ -10,7 +10,7 @@ authors:
 requires:
 - core:1.2.4/ '*'
 
-provides: [Exhibition]
+provides: [Exhibition,Exhibition.Horizontal,Exhibition.Vertical,Exhibition.Matrix]
 ...
 */
 
@@ -21,26 +21,39 @@ var Exhibition = new Class({
 	options: {
 		"defaultIndex": 0,
 		"duration": 300,
-		"transition": "expo:out"
+		"transition": "expo:out",
+		"blank": 50
+/*
+		onChange: $empty
+		onNext: $empty
+		onPrev: $empty
+*/
 	},
 
 	initialize: function (container,sources,options) {
 		this.setOptions(options);
 		this.container= container;
 		this.elements = sources;
-		this.tween =  {"duration": this.options.duration, "transition": this.options.transition};
+		this.tween = {
+			"duration": this.options.duration,
+			"transition": this.options.transition,
+			"onComplete": this.onComplete.bind(this)
+		};
 		this.index = this.options.defaultIndex;
-		this.calculationStartPosition();
-		this.calculationHeight();
+		this.reset();
 		this.adjustment();
-		this.render();
 		this.setEvents();
+		this.counter = 0;
 	},
 
-	calculationStartPosition: function() {
-		this.baseWidth	= this.elements[this.index].getStyle("width").toInt();
-		this.maxWidth	= $(this.container).getStyle("width").toInt();
-		this.startLeft	= (this.maxWidth / 2) - (this.baseWidth / 2);
+	reset: function() {
+		var positions = this.calculation();
+		positions.each(function(p,k){
+			var e = this.elements[k];
+			e.setStyle("left", p.x);
+		}, this);
+		this.elements.removeClass("active");
+		this.elements[this.index].addClass("active");
 	},
 
 	calculationHeight: function() {
@@ -56,43 +69,26 @@ var Exhibition = new Class({
 		}, this);
 	},
 
-	calculationMoveValues: function() {
-		var moveValues = new Array();
-
-		this.calculationStartPosition();
+	calculation: function() {
+		var size = this.container.getSize();
+		var x = size.x/2, y = size.y/2, l = size.x/2;
+		var positions = new Array();
 		this.elements.each(function(e,k) {
-			var width = 0, start = e.getPosition().x;
-			if (k < this.index) {
-				for (var i = k; i < this.index; i++) {
-					width -= this.elements[i].getSize().x + 50;
-				}
-			} else if (k > this.index) {
-				for (var i = this.index; i < k; i++) {
-					width += this.elements[i].getSize().x + 50;
-				}
-			}
-			moveValues.push([start, this.startLeft + width]);
+			var size = e.getSize();
+			positions.push({x: l, y: y});
+			l = l + size.x + this.options.blank;
 		}, this);
-		return moveValues;
-	},
 
-	render: function() {
+		var e = this.elements[this.index];
+		var m = positions[this.index].x - x + (e.getSize().x/2);
 		this.elements.each(function(e,k) {
-			var width = 0;
-			if (k < this.index) {
-				for (var i = k; i < this.index; i++) {
-					width -= this.elements[i].getSize().x + 50;
-				}
-			} else if (k > this.index) {
-				for (var i = this.index; i < k; i++) {
-					width += this.elements[i].getSize().x + 50;
-				}
-			}
-			e.setStyle("left", this.startLeft + width);
-		}, this);
+			positions[k].x = positions[k].x - m;
+		});
+		return positions;
 	},
 
 	adjustment: function(){
+		this.calculationHeight();
 		this.elements.each(function(e,k) {
 			var height = e.getSize().y;
 			var margin = this.baseTop - (height / 2);
@@ -111,33 +107,40 @@ var Exhibition = new Class({
 		}, this);
 	},
 
-	next: function() {
+	next: function(){
 		var nextIndex = this.index + 1;
-		this.activate(nextIndex);
-/*
-		this.elements.each(function(e,k) {
-			var start = e.getStyle("left").toInt();
-			var width = e.getStyle("width").toInt();
-//			var end	= start - (width + 50);
-			var end	= start - width;
-//alert(end);
-			var fx = e.get("tween", this.tween);
-			fx.start("left", [start, end]);
-		}, this);
-*/
+		if (nextIndex < this.elements.length) {
+			this.fireEvent("next", [this.index, this.elements[this.index]]);
+			this.activate(nextIndex);
+		}
 	},
 
 	prev: function() {
 		var prevIndex = this.index - 1;
-		this.activate(prevIndex);
+		if (prevIndex >= 0) {
+			this.fireEvent("prev", [this.index, this.elements[this.index]]);
+			this.activate(prevIndex);
+		}
+	},
+
+	onComplete: function() {
+		this.counter++;
+		if (this.counter >= this.elements.length) {
+			this.fireEvent("change", [this.index, this.elements[this.index]]);
+			this.counter = 0;
+		}
 	},
 
 	activate: function(index) {
 		this.index = index;
-		var moveValues = this.calculationMoveValues();
-		moveValues.each(function(v,k) {
-			var fx = this.elements[k].get("tween", this.tween);
-			fx.start("left", v);
+		this.elements.removeClass("active");
+		this.elements[this.index].addClass("active");
+		var positions = this.calculation();
+		positions.each(function(p,k) {
+			var e = this.elements[k];
+			var x = e.getPosition().x;
+			var fx = e.get("tween", this.tween);
+			fx.start("left", [x, p.x]);
 		}, this);
 	}
 

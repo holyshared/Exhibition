@@ -17,6 +17,24 @@ div#container {
 	position: relative;
 }
 
+div#sidebar {
+	width: 185px;
+	padding: 0px 15px;
+	background: #000000;
+	opacity: 0.8;
+	position: absolute;
+	left: 100px;
+	top: 0px;
+	z-index: 1;
+}
+
+div#sidebar h1 {
+	font-size: 2.6em;
+	margin-top: 50px;
+	text-transform: uppercase;
+	color: #ffffff;
+}
+
 ul#gnavi {
 	list-style: none; 
 	margin: 0px 0px 25px 0px;
@@ -37,8 +55,11 @@ ul#gnavi li a:hover {
 	color: #3c94af;
 }
 
-dl#properties {
+ul#gnavi li a.active {
+	font-weight: bold;
+	color: #3c94af;
 }
+
 
 dl#properties dt {
 	color: #ffffff;
@@ -55,30 +76,10 @@ dl#properties dd p {
 	color: #ffffff;
 }
 
-
 dl#properties dd a {
 	color: #ffffff;
 }
 
 dl#properties dd a:hover {
 	color: #3c94af;
-}
-
-
-div#sidebar h1 {
-	font-size: 2.6em;
-	margin-top: 50px;
-	text-transform: uppercase;
-	color: #ffffff;
-}
-
-div#sidebar {
-	width: 185px;
-	padding: 0px 15px;
-	background: #000000;
-	opacity: 0.8;
-	position: absolute;
-	left: 100px;
-	top: 0px;
-	z-index: 1;
 }
