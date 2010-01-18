@@ -59,7 +59,7 @@ Exhibition.Vertical = new Class({
 
 	calculation: function() {
 		var size = this.container.getSize();
-		var x = size.x/2, y = size.y/2, t = size.y/2;
+		var x = size.x/2, y = $(document.body).getSize().y/2, t = $(document.body).getSize().y/2;
 		var positions = new Array();
 		this.elements.each(function(e,k) {
 			var size = e.getSize();
@@ -67,11 +67,14 @@ Exhibition.Vertical = new Class({
 			t = t + size.y + this.options.blank;
 		}, this);
 
+
+
 		var e = this.elements[this.index];
 		var m = positions[this.index].y - y + (e.getSize().y/2);
 		this.elements.each(function(e,k) {
 			positions[k].y = positions[k].y - m;
 		});
+
 		return positions;
 	},
 

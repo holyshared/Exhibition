@@ -2,13 +2,15 @@
 
 div#container {
 	margin: 0px auto 0px auto;
+	border: 1px soilid #cccccc;
+	height: 500px;
 }
 
 ul#exhibition {
 	overflow: hidden;
 	list-style: none;
 	position: relative;
-	margin: 0px auto 0px 300px;
+	margin: 0px auto 0px 250px;
 }
 
 ul#exhibition li {

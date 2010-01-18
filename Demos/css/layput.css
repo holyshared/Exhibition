@@ -18,12 +18,12 @@ div#container {
 }
 
 div#sidebar {
-	width: 185px;
+	width: 150px;
 	padding: 0px 15px;
 	background: #000000;
 	opacity: 0.8;
 	position: absolute;
-	left: 100px;
+	left: 50px;
 	top: 0px;
 	z-index: 1;
 }
