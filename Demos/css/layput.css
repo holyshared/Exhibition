@@ -9,11 +9,12 @@ body {
 div#warpper {
 	margin: 0px auto;
 	text-align: left;
+	position: relative;
 }
 
 div#container {
 	text-align: left;
-	margin: 200px auto 0px auto;
+	margin: 0px auto 0px auto;
 	position: relative;
 }
 
@@ -84,6 +85,32 @@ dl#properties dd a:hover {
 	color: #3c94af;
 }
 
+div#developer {
+	overflow: hidden;
+}
+
+div#developer ul {
+	float: right;
+	padding-right: 15px;
+	list-style: none;
+	text-align: right;
+	margin-bottom: 15px;
+}
+
+div#developer ul strong {
+	padding-right: 5px;
+	text-transform: uppercase;
+	font-size: 95%;
+}
+
+div#footer {
+	width: 100%;
+	position: absolute;
+	top: 85%;
+}
+
 p#copyright {
+	padding-right: 15px;
+	float: right;
 	text-align: right;
 }

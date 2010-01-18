@@ -40,10 +40,13 @@ var Exhibition = new Class({
 			"onComplete": this.onComplete.bind(this)
 		};
 		this.index = this.options.defaultIndex;
+		this.properties = [];
+		this.counter = 0;
+		this.addEvent("onImagePreload", this.onImagePreload.bind(this));
+		this.preload();
 		this.reset();
 		this.adjustment();
 		this.setEvents();
-		this.counter = 0;
 	},
 
 	reset: function() { return true; },
@@ -59,6 +62,26 @@ var Exhibition = new Class({
 			}.bind(this, [k]);
 			a.addEvent("click", h);
 		}, this);
+	},
+
+	onImagePreload: function() {
+		this.elements.each(function(e,k) {
+			var img = e.getElement("img");
+			var p = img.getProperties("width", "height", "title", "alt", "src");
+			this.properties.push(p);
+		}.bind(this));
+		this.fireEvent("preload", [this.properties]);
+//		this.fireEvent("change", [this.properties[this.currentIndex]]);
+	},
+
+	preload: function(){
+		var preloadImages = [];
+		this.elements.each(function(e,k) {
+			var img = e.getElement("img");
+			var src = img.getProperty("src");
+			preloadImages.push(src);
+		});
+		var images = new Asset.images(preloadImages, {"onComplete": this.fireEvent.bind(this, "onImagePreload")});
 	},
 
 	next: function(){
