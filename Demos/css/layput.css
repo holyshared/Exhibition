@@ -16,6 +16,7 @@ div#container {
 	text-align: left;
 	margin: 0px auto 0px auto;
 	position: relative;
+	border: 1px solid #cccccc;
 }
 
 div#sidebar {
@@ -106,7 +107,7 @@ div#developer ul strong {
 div#footer {
 	width: 100%;
 	position: absolute;
-	top: 85%;
+	top: 100%;
 }
 
 p#copyright {
