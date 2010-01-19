@@ -22,7 +22,8 @@ Exhibition.Vertical = new Class({
 		"defaultIndex": 0,
 		"duration": 300,
 		"transition": "expo:out",
-		"blank": 50
+		"blank": 50,
+		"height": null,
 /*
 		onChange: $empty
 		onNext: $empty
@@ -32,7 +33,9 @@ Exhibition.Vertical = new Class({
 
 	initialize: function (container,sources,options) {
 		this.parent(container,sources,options);
-		this.container.setStyle("height", window.innerHeight);
+		if (this.options.height) {
+			this.container.setStyle("height", this.options.height)
+		};
 	},
 
 	reset: function() {
@@ -66,8 +69,6 @@ Exhibition.Vertical = new Class({
 			positions.push({x: x, y: t});
 			t = t + size.y + this.options.blank;
 		}, this);
-
-
 
 		var e = this.elements[this.index];
 		var m = positions[this.index].y - y + (e.getSize().y/2);
