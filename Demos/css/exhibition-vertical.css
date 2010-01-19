@@ -1,9 +1,5 @@
 @charset "utf-8";
 
-div#container {
-	margin: 0px auto;
-}
-
 ul#exhibition {
 	overflow: hidden;
 	list-style: none;
@@ -45,7 +41,7 @@ p.control a {
 
 p.control a#prev {
 	display: block;
-	margin-bottom: 80px;
+	margin-bottom: 20px;
 	background: url(../images/vertical/btn_prev.png) no-repeat left top;
 	height: 60px;
 	width: 60px;

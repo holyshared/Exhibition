@@ -6,6 +6,10 @@ body {
 	height: 100%;
 }
 
+html {
+	height: 100%;
+}
+
 div#warpper {
 	margin: 0px auto;
 	text-align: left;
@@ -17,6 +21,15 @@ div#container {
 	margin: 0px auto 0px auto;
 	position: relative;
 }
+
+* html div#container {
+	height: 100%;
+}
+
+body > #container {
+	height: auto;
+}
+
 
 div#sidebar {
 	width: 150px;
@@ -85,6 +98,14 @@ dl#properties dd a:hover {
 	color: #3c94af;
 }
 
+
+
+div#footer {
+	width: 100%;
+	position: absolute;
+	top: 85%;
+}
+
 div#developer {
 	overflow: hidden;
 }
@@ -101,12 +122,6 @@ div#developer ul strong {
 	padding-right: 5px;
 	text-transform: uppercase;
 	font-size: 95%;
-}
-
-div#footer {
-	width: 100%;
-	position: absolute;
-	top: 85%;
 }
 
 p#copyright {
