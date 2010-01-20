@@ -19,22 +19,22 @@ Exhibition.Vertical = new Class({
 	Extends: Exhibition,
 
 	options: {
+/*
+	onChange: $empty
+	onNext: $empty
+	onPrev: $empty
+*/
 		"defaultIndex": 0,
 		"duration": 300,
 		"transition": "expo:out",
 		"blank": 50,
-		"height": null,
-/*
-		onChange: $empty
-		onNext: $empty
-		onPrev: $empty
-*/
+		"height": null
 	},
 
 	initialize: function (container,sources,options) {
 		this.parent(container,sources,options);
 		if (this.options.height) {
-			this.container.setStyle("height", this.options.height)
+			this.container.setStyle("height", this.options.height);
 		};
 	},
 
