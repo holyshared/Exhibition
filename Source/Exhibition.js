@@ -88,6 +88,7 @@ var Exhibition = new Class({
 	next: function(){
 		var nextIndex = this.index + 1;
 		if (nextIndex < this.elements.length) {
+			this.index++;
 			this.fireEvent("next", [this.index, this.elements[this.index]]);
 			this.activate(nextIndex);
 		}
@@ -96,6 +97,7 @@ var Exhibition = new Class({
 	prev: function() {
 		var prevIndex = this.index - 1;
 		if (prevIndex >= 0) {
+			this.index--;
 			this.fireEvent("prev", [this.index, this.elements[this.index]]);
 			this.activate(prevIndex);
 		}
@@ -110,9 +112,9 @@ var Exhibition = new Class({
 	},
 
 	activate: function(index) {
+		this.index = index;
 		var active = this.elements[this.index];
 		var elements = this.elements;
-		this.index = index;
 		elements.removeClass("active");
 		active.addClass("active");
 		this.render();

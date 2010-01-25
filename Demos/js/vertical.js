@@ -83,18 +83,25 @@ var Vertical = {
 	
 	onActive: function(index, element) {
 		var photoId = element.getProperty("href").replace("#", "");
-		this.flickr = new Request.JSONP({
-			'url': "http://api.flickr.com/services/rest/",
-			'data': {
-				'api_key': this.apiKey,
-				'method': 'flickr.photos.getInfo',
-				'photo_id': photoId,
-				'format': 'json'
-			},
-			'callbackKey': 'jsoncallback',
-			'onSuccess': this.onPhotoInfoSuccess.bind(this)
-		});
-		this.flickr.send();
+		if (!this.cacheLarge[photoId]) {
+			this.flickr = new Request.JSONP({
+				'url': "http://api.flickr.com/services/rest/",
+				'data': {
+					'api_key': this.apiKey,
+					'method': 'flickr.photos.getInfo',
+					'photo_id': photoId,
+					'format': 'json'
+				},
+				'callbackKey': 'jsoncallback',
+				'onRequest': function() {
+					this.preview.set("html", "Now Loading.....");
+				}.bind(this),
+				'onSuccess': this.onPhotoInfoSuccess.bind(this)
+			});
+			this.flickr.send();
+		} else {
+			this.render(this.cacheLarge[photoId]);
+		}
 	},
 
 	onPhotoInfoSuccess: function(response) {
@@ -108,19 +115,45 @@ var Vertical = {
 			"description": photo.description._content,
 			"url": photo.urls.url.shift()._content
 		};
-		this.cacheLarge[props.id].push(props);
+		this.cacheLarge[props.id] = props;
+		this.render(props);
+	},
+	
+	render: function(props) {
 
 		var src = "http://farm" + props.farm + ".static.flickr.com/";
 		src += props.server + "/" + props.id + "_" + props.secret + "_m.jpg";
-		
-		var title = new Element("h2", {"html": props.title});
-		var image = new Element("img", {"src": src})
-			.inject(new Element("p", {"class": "image"}));
-		var desc = new Element("a", {"href": props.url})
-			.inject(new Element("p", {"class": "description", "html": props.description}));
-	
-		this.preview.set("html", "");
-		this.preview.adopt(title,image,desc);
+
+		var loadImage = new Asset.image(src, {
+			"onload": function(props) {
+				var attributes = loadImage.getProperties("height", "width", "src");
+				var title = new Element("h2", {"html": props.title});
+				var image = new Element("img", {"src": attributes.src});
+				
+				var url = new Element("a", {"href": props.url, "html": props.url});
+				var desc = new Element("p", {"class": "description"});
+
+				image.inject(desc);
+				if (props.description) { desc.appendText(props.description + "<br />"); }
+				url.inject(desc);
+
+				var sSize = this.preview.getSize();
+				this.preview.set("html", "");
+				this.preview.setStyle("height", "auto");
+				this.preview.adopt(title,desc);
+				var eSize = this.preview.getSize();
+
+				var fx = this.preview.get("morph", {
+					"transition": "sine:in:out"
+				});
+				fx.start({
+					"margin-top": [-(sSize.y - 50)/2,-eSize.y/2],
+					"height": [sSize.y - 50, eSize.y]
+				});
+
+			}.bind(this, [props])
+		});
+
 	}
 	
 };
