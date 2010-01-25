@@ -60,3 +60,10 @@ p.control a#prev:hover,
 p.control a#next:hover {
 	background-position: -60px top;
 }
+
+div#preview {
+	border: 1px solid #cccccc;
+	position: absolute;
+	top: 0px;
+	margin: 0px auto 0px 270px;
+}

@@ -27,6 +27,7 @@ var Exhibition = new Class({
 		onChange: $empty
 		onNext: $empty
 		onPrev: $empty
+		onActive: $empty
 */
 	},
 
@@ -57,9 +58,9 @@ var Exhibition = new Class({
 	setEvents: function() {
 		this.elements.each(function(e,k) {
 			var a = $(e).getElement("a");
-			var h = function(index) {
+			var h = function(index,element) {
 				this.activate(index);
-			}.bind(this, [k]);
+			}.bind(this, [k,a]);
 			a.addEvent("click", h);
 		}, this);
 	},
@@ -109,10 +110,13 @@ var Exhibition = new Class({
 	},
 
 	activate: function(index) {
+		var active = this.elements[this.index];
+		var elements = this.elements;
 		this.index = index;
-		this.elements.removeClass("active");
-		this.elements[this.index].addClass("active");
+		elements.removeClass("active");
+		active.addClass("active");
 		this.render();
+		this.fireEvent("active", [index,active.getElement("a")]);
 	}
 
 });

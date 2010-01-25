@@ -5,9 +5,13 @@ var Vertical = {
 
 	//Search photo tags
 	tags: ["hat", "cap", "hats", "caps", "faves", 'favorite'],
-	
+
+	cacheSmall: [],
+	cacheLarge: [],
+
 	initialize: function() {
 		this.container = $("exhibition");
+		this.preview = $("preview");
 		this.container.setStyle("height", window.innerHeight);
 
 		this.loadImages = new Array();
@@ -59,8 +63,9 @@ var Vertical = {
 
 	onPreload: function() {
 		this.exhibition = new Exhibition.Vertical(
-			this.container,
-			this.container.getElements("li")
+			this.container, this.container.getElements("li"), {
+				"onActive": this.onActive.bind(this)
+			}
 		);
 		$("prev").addEvent("click", this.onPrevClick.bind(this));
 		$("next").addEvent("click", this.onNextClick.bind(this));
@@ -72,55 +77,51 @@ var Vertical = {
 		this.exhibition.next();
 	},
 
-	onPrevClick: function(){
+	onPrevClick: function() {
 		this.exhibition.prev();
-	}
-
+	},
 	
-	
-	/*
-
-
+	onActive: function(index, element) {
+		var photoId = element.getProperty("href").replace("#", "");
 		this.flickr = new Request.JSONP({
 			'url': "http://api.flickr.com/services/rest/",
 			'data': {
 				'api_key': this.apiKey,
 				'method': 'flickr.photos.getInfo',
-				'photo_id': 'date-posted-desc'
+				'photo_id': photoId,
 				'format': 'json'
 			},
 			'callbackKey': 'jsoncallback',
-			'onSuccess': this.onSuccess.bind(this)
+			'onSuccess': this.onPhotoInfoSuccess.bind(this)
 		});
 		this.flickr.send();
+	},
 
-	<photo id="2733" secret="123456" server="12"
-		isfavorite="0" license="3" rotation="90" 
-		originalsecret="1bc09ce34a" originalformat="png">
-		<owner nsid="12037949754@N01" username="Bees"
-			realname="Cal Henderson" location="Bedford, UK" />
-		<title>orford_castle_taster</title>
-		<description>hello!</description>
-		<visibility ispublic="1" isfriend="0" isfamily="0" />
-		<dates posted="1100897479" taken="2004-11-19 12:51:19"
-			takengranularity="0" lastupdate="1093022469" />
-		<permissions permcomment="3" permaddmeta="2" />
-		<editability cancomment="1" canaddmeta="1" />
-		<comments>1</comments>
-		<notes>
-			<note id="313" author="12037949754@N01"
-				authorname="Bees" x="10" y="10"
-				w="50" h="50">foo</note>
-		</notes>
-		<tags>
-			<tag id="1234" author="12037949754@N01" raw="woo yay">wooyay</tag>
-			<tag id="1235" author="12037949754@N01" raw="hoopla">hoopla</tag>
-		</tags>
-		<urls>
-			<url type="photopage">http://www.flickr.com/photos/bees/2733/</url> 
-		</urls>
-	</photo>
-*/
+	onPhotoInfoSuccess: function(response) {
+		var photo = response.photo;
+		var props = {
+			"id": photo.id,
+			"farm": photo.farm,
+			"secret": photo.secret,
+			"server": photo.server,
+			"title": photo.title._content,
+			"description": photo.description._content,
+			"url": photo.urls.url.shift()._content
+		};
+		this.cacheLarge[props.id].push(props);
+
+		var src = "http://farm" + props.farm + ".static.flickr.com/";
+		src += props.server + "/" + props.id + "_" + props.secret + "_m.jpg";
+		
+		var title = new Element("h2", {"html": props.title});
+		var image = new Element("img", {"src": src})
+			.inject(new Element("p", {"class": "image"}));
+		var desc = new Element("a", {"href": props.url})
+			.inject(new Element("p", {"class": "description", "html": props.description}));
+	
+		this.preview.set("html", "");
+		this.preview.adopt(title,image,desc);
+	}
 	
 };
 
