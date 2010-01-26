@@ -13,7 +13,7 @@ var Vertical = {
 		this.container = $("exhibition");
 		this.preview = $("preview");
 		this.container.setStyle("height", window.innerHeight);
-
+		this.startSize = {x:0,y:0};
 		this.loadImages = new Array();
 		this.flickr = new Request.JSONP({
 			'url': "http://api.flickr.com/services/rest/",
@@ -118,7 +118,7 @@ var Vertical = {
 		this.cacheLarge[props.id] = props;
 		this.render(props);
 	},
-	
+
 	render: function(props) {
 
 		var src = "http://farm" + props.farm + ".static.flickr.com/";
@@ -126,10 +126,12 @@ var Vertical = {
 
 		var loadImage = new Asset.image(src, {
 			"onload": function(props) {
+
 				var attributes = loadImage.getProperties("height", "width", "src");
+
+				var container = new Element("div", {"class": "container"});
 				var title = new Element("h2", {"html": props.title});
 				var image = new Element("img", {"src": attributes.src});
-				
 				var url = new Element("a", {"href": props.url, "html": props.url});
 				var desc = new Element("p", {"class": "description"});
 
@@ -137,20 +139,28 @@ var Vertical = {
 				if (props.description) { desc.appendText(props.description + "<br />"); }
 				url.inject(desc);
 
-				var sSize = this.preview.getSize();
-				this.preview.set("html", "");
-				this.preview.setStyle("height", "auto");
-				this.preview.adopt(title,desc);
-				var eSize = this.preview.getSize();
+				title.inject(container);
+				desc.inject(container);
 
+				this.preview.set("html", "");
+
+				container.inject(this.preview);
+				container.setStyles({"visibility": "hidden", "opacity": 0});
+
+				
+				var endSize	= container.getSize();
 				var fx = this.preview.get("morph", {
-					"transition": "sine:in:out"
+					"transition": "expo:in:out",
+					"onComplete": function() {
+						container.setStyle("visibility", "visible");
+						container.fade(0.8);
+					}
 				});
 				fx.start({
-					"margin-top": [-(sSize.y - 50)/2,-eSize.y/2],
-					"height": [sSize.y - 50, eSize.y]
+					"margin-top": [-(this.startSize.y)/2,-endSize.y/2],
+					"height": [this.startSize.y, endSize.y]
 				});
-
+				this.startSize = endSize;
 			}.bind(this, [props])
 		});
 

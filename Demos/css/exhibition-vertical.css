@@ -67,24 +67,29 @@ div#preview {
 /*	left: 50%; */
 	margin-left: 500px;
 	background: #333333;
-	padding: 15px 15px 5px 15px;
+	padding: 15px 15px 15px 15px;
 	width: 495px;
-/*	margin-left: -248px; */
+/*	height: auto;
+	margin-left: -248px; */
 }
 
-div#preview h2 {
+div.container {
+	overflow: hidden;
+}
+
+div.container h2 {
 	margin-bottom: 10px;
 	color: #ffffff;
 }
 
-div#preview img {
+div.container img {
 	padding: 5px;
 	background: #cccccc;
 	float: left;
 	margin-right: 15px;
 }
 
-div#preview p.description {
+div.container p.description {
 	color: #ffffff;
 	margin: 0px;
 	padding: 0px;
