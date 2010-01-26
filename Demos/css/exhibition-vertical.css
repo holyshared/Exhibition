@@ -89,8 +89,12 @@ div.container img {
 	margin-right: 15px;
 }
 
-div.container p.description {
+div.container {
 	color: #ffffff;
-	margin: 0px;
-	padding: 0px;
+/*	margin: 0px;
+	padding: 0px; */
+}
+
+div.container a {
+	color: #b7dfe7;
 }

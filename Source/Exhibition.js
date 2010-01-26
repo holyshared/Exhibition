@@ -72,7 +72,7 @@ var Exhibition = new Class({
 			this.properties.push(p);
 		}.bind(this));
 		this.fireEvent("preload", [this.properties]);
-//		this.fireEvent("change", [this.properties[this.currentIndex]]);
+		this.activate(this.index);
 	},
 
 	preload: function(){
