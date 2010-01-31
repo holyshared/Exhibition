@@ -13,13 +13,12 @@ html {
 div#warpper {
 	margin: 0px auto;
 	text-align: left;
-	position: relative;
 }
 
 div#container {
 	text-align: left;
 	margin: 0px auto 0px auto;
-	position: relative;
+	overflow: hidden;
 }
 
 * html div#container {
@@ -30,7 +29,6 @@ body > #container {
 	height: auto;
 }
 
-
 div#sidebar {
 	width: 150px;
 	padding: 0px 15px;
@@ -39,7 +37,7 @@ div#sidebar {
 	position: absolute;
 	left: 50px;
 	top: 0px;
-	z-index: 1;
+	z-index: 9999;
 }
 
 div#sidebar h1 {
@@ -55,7 +53,7 @@ ul#gnavi {
 }
 
 ul#gnavi li {
-	font-size: 1.0em;
+	font-size: 0.8em;
 	margin-bottom: 10px;
 	text-transform: uppercase;
 }

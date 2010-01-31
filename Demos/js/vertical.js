@@ -143,7 +143,8 @@ var Vertical = {
 			"onload": function(props) {
 				var attr = loadImage.getProperty("src"), urls = [], tags = [];
 				props.urls.each(function(url) {
-					urls.push(new Element("a", {"href": url, "html": url}));
+//					urls.push(new Element("a", {"href": url, "html": url}));
+					urls.push(new Element("a", {"href": url, "html": "Go to flickr page"}));
 				});
 
 				var last = props.tags.length - 1;
@@ -158,11 +159,12 @@ var Vertical = {
 				var description = new Element("p", {"class": "description"});
 				var tagLinks = new Element("p", {"class": "tags"});
 	
-				if (props.description) {
-					description.set("html", props.description);
-					new Element("br").inject(description);
-					new Element("br").inject(description);
-				}
+				var content = (props.description) ? props.description : "&nbsp;no content....";
+
+				description.set("html", content);
+				new Element("br").inject(description);
+				new Element("br").inject(description);
+				
 				new Element("strong", {"html": "description:"}).inject(description, 'top');
 				image.inject(description, 'top');
 

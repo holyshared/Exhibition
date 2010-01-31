@@ -64,13 +64,10 @@ p.control a#next:hover {
 div#preview {
 	position: absolute;
 	top: 50%;
-/*	left: 50%; */
 	margin-left: 500px;
 	background: #333333;
 	padding: 15px 15px 15px 15px;
 	width: 495px;
-/*	height: auto;
-	margin-left: -248px; */
 }
 
 div.container {
@@ -91,8 +88,6 @@ div.container img {
 
 div.container {
 	color: #ffffff;
-/*	margin: 0px;
-	padding: 0px; */
 }
 
 div.container a {

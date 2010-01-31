@@ -7,7 +7,6 @@ ul#exhibition {
 }
 
 ul#exhibition li {
-	float: left;
 	position: absolute;
 }
 
@@ -26,6 +25,33 @@ ul#exhibition li.active a {
 }
 
 p.control {
-	padding-top: 30px;
 	text-align: center;
+	overflow: hidden;
+	margin: 0px auto;
+	width: 184px;
+	position: relative;
+	top: 30px;
+}
+
+p.control a {
+	text-indent: -9999px;
+	display: block;
+	height: 60px;
+	width: 82px;
+	outline: none;
+	float: left;
+}
+
+p.control a#prev {
+	background: url(../images/horizontal/btn_prev.png) no-repeat left top;
+	margin-right: 20px;
+}
+
+p.control a#next {
+	background: url(../images/horizontal/btn_next.png) no-repeat left top;
+}
+
+p.control a#prev:hover,
+p.control a#next:hover {
+	background-position: -82px top;
 }
