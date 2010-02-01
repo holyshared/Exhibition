@@ -58,9 +58,11 @@ var Exhibition = new Class({
 	setEvents: function() {
 		this.elements.each(function(e,k) {
 			var a = $(e).getElement("a");
-			var h = function(index,element) {
+			var h = function(event) {
+				event.stop();
+				var index = this.elements.indexOf(a.parentNode);
 				this.activate(index);
-			}.bind(this, [k,a]);
+			}.bind(this);
 			a.addEvent("click", h);
 		}, this);
 	},

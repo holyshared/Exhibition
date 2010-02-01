@@ -1,12 +1,8 @@
 @charset "utf-8";
 
 
-
-p.control {
-	padding-top: 30px;
-	text-align: center;
-}
-
+/* Exhibition
+----------------------------------*/
 ul#exhibition {
 	overflow: hidden;
 	list-style: none;
@@ -32,26 +28,11 @@ ul#exhibition li.active a {
 	background: #3c94af;
 }
 
-canvas#left {
-	top: 0px;
-	left: 0px;
-	z-index: 1;
-	position: absolute;
-	height: 272px;
-	width: 139px;
-/*	background: url(../images/left.png) repeat-y left top; */
-}
 
-canvas#right {
-	left: 841px;
-	top: 0px;
-	z-index: 1;
-	position: absolute;
-	height: 272px;
-	width: 139px;
-/*	background: url(../images/right.png) repeat-y left top; */
-}
 
-p#copyright {
+/* Controller
+----------------------------------*/
+p.control {
+	padding-top: 30px;
 	text-align: center;
 }

@@ -76,7 +76,16 @@ var Horizontal = {
 	onLoad: function(counter,index) {
 		var photos = this.response.photos.photo;
 		var photo = photos[index];
-		var a  = new Element("a", {"href": "#" + photo.id, "title": photo.title});
+
+		var src = "http://farm" + photo.farm + ".static.flickr.com/";
+		src += photo.server + "/" + photo.id + "_" + photo.secret + "_b.jpg";
+
+/*
+		var owner = photo.owner;
+		var id = photo.id;
+		var url = "http://www.flickr.com/photos/" + owner + "/" + id;
+*/
+		var a  = new Element("a", {"href": src, "title": photo.title});
 		var li = new Element("li");
 		this.loadImages[index].inject(a);
 		a.inject(li);
@@ -91,6 +100,7 @@ var Horizontal = {
 		};
 		
 		li.setStyles(styleProps);
+		li.fade("out");
 		this.current.set("html", counter + 1);
 		this.max.set("html", index + 1);
 	},
@@ -108,7 +118,6 @@ var Horizontal = {
 					var y2 = this.container.getSize().y;
 					this.container.setStyle("margin-top", (y1/2) - (y2/2));
 				}.bind(this),
-
 				"onActive": function(index, element) {
 					this.current.set("html", index + 1);
 				}.bind(this)

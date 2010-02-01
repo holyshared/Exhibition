@@ -1,5 +1,7 @@
 @charset "utf-8";
 
+/* Exhibition
+----------------------------------*/
 ul#exhibition {
 	overflow: hidden;
 	list-style: none;
@@ -25,6 +27,9 @@ ul#exhibition li.active a {
 	background: #3c94af;
 }
 
+
+/* Controller
+----------------------------------*/
 p.control {
 	text-align: left;
 	position: absolute;
@@ -61,6 +66,9 @@ p.control a#next:hover {
 	background-position: -60px top;
 }
 
+
+/* Preview
+----------------------------------*/
 div#preview {
 	position: absolute;
 	top: 50%;
