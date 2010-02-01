@@ -28,9 +28,26 @@ p.control {
 	text-align: center;
 	overflow: hidden;
 	margin: 0px auto;
-	width: 184px;
+/*	width: 184px; */
+	width: 254px;
 	position: relative;
 	top: 30px;
+}
+
+p.control strong.max {
+	font-weight: normal;
+	font-size: 1.6em;
+}
+
+p.control strong.current {
+	font-family: Georgia;
+	font-size: 2.5em;
+	font-weight: normal;
+}
+
+p.control span.status {
+	padding-top: 14px;
+	display: inline-block;
 }
 
 p.control a {
@@ -39,16 +56,17 @@ p.control a {
 	height: 60px;
 	width: 82px;
 	outline: none;
-	float: left;
 }
 
 p.control a#prev {
 	background: url(../images/horizontal/btn_prev.png) no-repeat left top;
-	margin-right: 20px;
+/*	margin-right: 20px; */
+	float: left;
 }
 
 p.control a#next {
 	background: url(../images/horizontal/btn_next.png) no-repeat left top;
+	float: right;
 }
 
 p.control a#prev:hover,

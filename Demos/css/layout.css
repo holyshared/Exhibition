@@ -53,7 +53,7 @@ ul#gnavi {
 }
 
 ul#gnavi li {
-	font-size: 0.8em;
+	font-size: 1.0em;
 	margin-bottom: 10px;
 	text-transform: uppercase;
 }
@@ -73,9 +73,21 @@ ul#gnavi li a.active {
 }
 
 
+p.avatar {
+	text-align: right;
+	width: 70px;
+}
+
+p.avatar a {
+	padding: 5px;
+	background: #cccccc;
+	display: block;
+}
+
 dl#properties dt {
 	color: #ffffff;
 	text-transform:uppercase;
+	font-weight: bold;
 }
 
 dl#properties dd {
@@ -95,22 +107,20 @@ dl#properties dd a {
 dl#properties dd a:hover {
 	color: #3c94af;
 }
-
-
-
+/*
 div#footer {
 	width: 100%;
 	position: absolute;
-	top: 85%;
+	top: 70%;
 }
-
+*/
 div#developer {
 	overflow: hidden;
+	padding-right: 15px;
 }
 
 div#developer ul {
 	float: right;
-	padding-right: 15px;
 	list-style: none;
 	text-align: right;
 	margin-bottom: 15px;
@@ -125,7 +135,7 @@ div#developer ul strong {
 div#footer {
 	width: 400px;
 	position: absolute;
-	top: 85%;
+	top: 75%;
 	left: 75%;
 }
 
