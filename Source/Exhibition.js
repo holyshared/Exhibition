@@ -73,7 +73,7 @@ var Exhibition = new Class({
 			var p = img.getProperties("width", "height", "title", "alt", "src");
 			this.properties.push(p);
 		}.bind(this));
-		this.fireEvent("preload", [this.properties]);
+		this.fireEvent("preload", [this.elements,this.properties]);
 		this.activate(this.index);
 	},
 
