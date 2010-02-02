@@ -44,6 +44,7 @@ div#sidebar {
 	left: 50px;
 	top: 0px;
 	z-index: 9999;
+	height: 100%;
 }
 
 div#sidebar h1 {

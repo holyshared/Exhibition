@@ -1,21 +1,13 @@
 window.addEvent("domready", function() {
 
-	var exhibition = new Exhibition.Horizontal($("exhibition"), $("exhibition").getElements("li"), {
-		"onChange": function(index,element) {
-		},
-		"onNext": function(index,element) {
-		},
-		"onPrev": function(index,element) {
-		}
-	});
-	
-	$("prev").addEvent("click", function() {
-		exhibition.prev();
-	});
+	$("container").setStyle("height", window.innerHeight);
 
-	$("next").addEvent("click", function() {
-		exhibition.next();
+	var exhibitions = $$("ul.exhibition");
+	exhibitions.each(function(element, key) {
+		var container = element;
+		var images = element.getElements("li");
+		new Exhibition.Horizontal(container, images, {"defaultIndex": Math.round(images.length/2)});
 	});
 	
-	
+
 });
