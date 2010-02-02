@@ -100,7 +100,7 @@ var Horizontal = {
 		};
 		
 		li.setStyles(styleProps);
-		li.fade("out");
+		li.fade(0);
 		this.current.set("html", counter + 1);
 		this.max.set("html", index + 1);
 	},
@@ -108,15 +108,31 @@ var Horizontal = {
 	onPreload: function() {
 		var elements = this.container.getElements("li");
 		elements.each(function(element,k){
-			element.setStyles({"top": 0, "left": 0, "margin-top": 0, "margin-left": 0});			
+			element.setStyles({"top": 0, "left": 0, "margin-top": 0, "margin-left": 0});
 		});
 
+		this.fxs = [];
 		this.exhibition = new Exhibition.Horizontal(
 			this.container, elements, {
-				"onPreload": function(elements) {
+				"onPreload": function(elements, properties) {
 					var y1 = $("container").getSize().y;
 					var y2 = this.container.getSize().y;
 					this.container.setStyle("margin-top", (y1/2) - (y2/2));
+
+
+					var duration = 300;
+					elements.each(function(element,k){
+						var fx = element.get("tween", {
+							"duration": duration,
+							"onComplete": function(){
+								alert("aa");
+							}
+						});
+						this.fxs.push(fx);
+						fx.start("opacity",0,1);
+						duration = duration + 50;
+					}.bind(this));
+
 				}.bind(this),
 				"onActive": function(index, element) {
 					this.current.set("html", index + 1);
@@ -126,7 +142,7 @@ var Horizontal = {
 		$("prev").addEvent("click", this.onPrevClick.bind(this));
 		$("next").addEvent("click", this.onNextClick.bind(this));
 
-		new Tips.Pointy(this.container.getElements("li a"), {pointyTipOptions: { point: 6, width: 200 }});
+//		new Tips.Pointy(this.container.getElements("li a"), {pointyTipOptions: { point: 6, width: 200 }});
 	},
 
 	onNextClick: function() { this.exhibition.next(); },
