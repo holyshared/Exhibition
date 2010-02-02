@@ -96,11 +96,11 @@ var Horizontal = {
 			"top": "50%",
 			"left": "50%",
 			"margin-top": -(size.y/2),
-			"margin-left": -(size.x/2)				
+			"margin-left": -(size.x/2)
 		};
-		
+
 		li.setStyles(styleProps);
-		li.fade(0);
+		li.fade("out");
 		this.current.set("html", counter + 1);
 		this.max.set("html", index + 1);
 	},
@@ -111,7 +111,7 @@ var Horizontal = {
 			element.setStyles({"top": 0, "left": 0, "margin-top": 0, "margin-left": 0});
 		});
 
-		this.fxs = [];
+
 		this.exhibition = new Exhibition.Horizontal(
 			this.container, elements, {
 				"onPreload": function(elements, properties) {
@@ -119,19 +119,12 @@ var Horizontal = {
 					var y2 = this.container.getSize().y;
 					this.container.setStyle("margin-top", (y1/2) - (y2/2));
 
-
-					var duration = 300;
-					elements.each(function(element,k){
-						var fx = element.get("tween", {
-							"duration": duration,
-							"onComplete": function(){
-								alert("aa");
-							}
-						});
-						this.fxs.push(fx);
-						fx.start("opacity",0,1);
+					var duration = 800;
+					for (var i = 0; l = elements.length, i < l; i++) {
+						var fx = elements[i].get("morph", {"duration": duration});
+						fx.start({"opacity": [0,1]});
 						duration = duration + 50;
-					}.bind(this));
+					}
 
 				}.bind(this),
 				"onActive": function(index, element) {
@@ -142,7 +135,7 @@ var Horizontal = {
 		$("prev").addEvent("click", this.onPrevClick.bind(this));
 		$("next").addEvent("click", this.onNextClick.bind(this));
 
-//		new Tips.Pointy(this.container.getElements("li a"), {pointyTipOptions: { point: 6, width: 200 }});
+		new Tips.Pointy(this.container.getElements("li a"), {pointyTipOptions: { point: 6, width: 200 }});
 	},
 
 	onNextClick: function() { this.exhibition.next(); },
