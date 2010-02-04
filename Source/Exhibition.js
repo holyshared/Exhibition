@@ -51,9 +51,44 @@ var Exhibition = new Class({
 	},
 
 	reset: function() { return true; },
-	calculation: function() { return true; },
+
+	calculation: function() {
+		var size = this.container.getSize();
+		var x = size.x/2, y = size.y/2, l = size.x/2, t = size.y/2;
+		var positions = new Array();
+		this.elements.each(function(e,k) {
+			var size = e.getSize();
+			positions.push({x: l, y: y});
+			if (k > 0 && (k % 5) == 0) {
+				l = x;
+
+			} else {
+				l = l + size.x + this.options.blank;
+			}
+		}, this);
+
+		var e = this.elements[this.index];
+		var m = positions[this.index].x - x + (e.getSize().x/2);
+		this.elements.each(function(e,k) {
+			positions[k].x = positions[k].x - m;
+		});
+		return positions;
+	},
+
 	adjustment: function() { return true; },
-	render:  function() { return true; },
+
+	render:  function() {
+		var positions = this.calculation();
+		positions.each(function(end,k) {
+			var e = this.elements[k];
+			var start = e.getPosition();
+			var fx = e.get("morph", this.tween);
+			fx.start({
+				"left": [start.x, end.x],
+				"top": [start.y, end.y]
+			});
+		}, this);
+	},
 
 	setEvents: function() {
 		this.elements.each(function(e,k) {

@@ -1,34 +1,25 @@
 @charset "utf-8";
 
-div#container {
-	text-align: left;
-	margin: 0px auto;
-	overflow: hidden;
-}
-
-ul.exhibition {
+ul#exhibition {
 	overflow: hidden;
 	list-style: none;
-	position: relative;
-	margin-bottom: 40px;
 }
 
-ul.exhibition li {
-	float: left;
+ul#exhibition li {
 	position: absolute;
+	height: 500px;
 }
 
-ul.exhibition li a {
+ul#exhibition li a {
 	display: block;
 	padding: 10px;
 	background: #333333;
-	color: #ffffff;
 }
 
-ul.exhibitionli a:hover {
+ul#exhibition li a:hover {
 	background: #3c94af;
 }
 
-ul.exhibition li.active a {
+ul#exhibition li.active a {
 	background: #3c94af;
 }

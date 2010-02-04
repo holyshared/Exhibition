@@ -1,13 +1,11 @@
 window.addEvent("domready", function() {
+	var container = $("container");
+	var exhibition = $("exhibition");
 
-	$("container").setStyle("height", window.innerHeight);
-
-	var exhibitions = $$("ul.exhibition");
-	exhibitions.each(function(element, key) {
-		var container = element;
-		var images = element.getElements("li");
-		new Exhibition.Horizontal(container, images, {"defaultIndex": Math.round(images.length/2)});
-	});
+	container.setStyle("height", window.innerHeight);
+	exhibition.setStyle("height", window.innerHeight);
 	
+	var images = exhibition.getElements("li");
+	new Exhibition(exhibition, images, {"defaultIndex": Math.round(images.length/2)});
 
 });
