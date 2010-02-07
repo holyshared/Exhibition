@@ -1,13 +1,17 @@
 @charset "utf-8";
 
+div#container {
+	overflow: hidden;
+}
+
 ul#exhibition {
 	overflow: hidden;
 	list-style: none;
+	position: relative;
 }
 
 ul#exhibition li {
 	position: absolute;
-	height: 500px;
 }
 
 ul#exhibition li a {
