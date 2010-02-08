@@ -165,17 +165,6 @@ var Exhibition = new Class({
 	},
 
 	adjustment: function() {
-/*
-		var targets = [];
-		this.elements.each(function(e,k) {
-			var index = k + 1;
-			if (index > 1 && (index % 5) == 0) {
-				this.adjustmentHeight(targets);
-				targets = [];
-			}
-			targets.push(e);
-		}, this);
-*/
 	},
 
 	render:  function() {
