@@ -65,7 +65,118 @@ var Exhibition = new Class({
 		var size = this.container.getSize();
 		var x = size.x/2, y = size.y/2, left = size.x/2, top = size.y/2, height = 0;
 
+
+		
+		
+		
+		
+		
 		this.positions = new Array();
+		this.elements.each(function(e,k) {
+			var size = e.getSize();
+			this.positions.push({x: left, y: top});
+		}, this);
+
+		
+		
+		var width = 0;
+		for (var column = 0; column < 5; column++) {
+//column
+			var current = column;
+			var targets = [];
+			while (current < this.elements.length) {
+				var e = this.elements[current];
+				var p = this.positions[current];
+				targets.push(e);
+				current = current + 5;
+			}
+
+			var maxWidth = this.getMaxWidth(targets);
+		//	width = width + maxWidth + this.options.blank;
+//			width = width + maxWidth + this.options.blank;// + this.options.blank;
+			width = width + maxWidth;// + this.options.blank;
+
+			var s = column;
+			targets.each(function(e,k){
+				var current = s + (k * 5);
+				if (current < this.elements.length) {
+					var p = this.positions[current];
+					this.positions[current].x = p.x + width;
+				}
+			},this);
+		
+		}
+
+		var height = 0; targets = [];
+		this.elements.each(function(e,k){
+			if (k > 0 && (k % 5) == 0) {
+				var maxHeight = this.getMaxHeight(targets);
+				height = height + maxHeight;
+
+				var start = (k - 5 > 0) ? k - 5 : 0;
+				for (var current = start; current < k; current++) {
+					this.positions[current].y = p.y + height;
+				}
+				targets = [];
+			}
+			targets.push(e);
+		}, this);
+
+		
+		
+		
+		/*
+		
+		for (var column = 0; column < 5; column++) {
+			var current = column;
+			var targets = [];
+			while (current < this.elements.length) {
+				var e = this.elements[current];
+				var p = this.positions[current];
+				targets.push(e);
+				current = current + 5;
+			}
+
+			var maxHeight = this.getMaxHeight(targets);
+			//	width = width + maxWidth + this.options.blank;
+			height = height + maxHeight;// + this.options.blank;
+
+			var s = column;
+			targets.each(function(e,k){
+				var current = s + (k * 5);
+				if (current < this.elements.length) {
+					var p = this.positions[current];
+					this.positions[current].y = p.y + height;
+				}
+			},this);
+		}
+		
+		*/
+		
+		
+		
+		
+		
+		
+		
+		
+		/*
+		this.elements.each(function(e,k) {
+			var size = e.getSize();
+//			this.positions.push({x: left, y: top});
+			var index = k + 1;
+			if (index > 1 && (index % 5) == 0) {
+				left = x;
+				top = top + height + this.options.blank;
+			} else {
+				left = left + size.x + this.options.blank;
+			}
+			height = Math.max(height, size.y);
+		}, this);		
+		*/
+		
+		/*
+		
 		this.elements.each(function(e,k) {
 			var size = e.getSize();
 			this.positions.push({x: left, y: top});
@@ -91,7 +202,7 @@ var Exhibition = new Class({
 
 
 
-
+*/
 
 
 
@@ -134,9 +245,21 @@ var Exhibition = new Class({
 		return width;
 	},
 
+	getMaxWidth: function(targets) {
+		var width = 0;
+		targets.each(function(e,k) {
+			width = Math.max(e.getSize().x, width);
+		});
+		return width;
+	},
 
-
-
+	getMaxHeight: function(targets) {
+		var height = 0;
+		targets.each(function(e,k) {
+			height = Math.max(e.getSize().y, height);
+		});
+		return height;
+	},
 
 
 
