@@ -128,24 +128,6 @@ var Exhibition = new Class({
 		return this.positions;
 	},
 	
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	calculationHeight: function(targets) {
 		var height = 0;
 		targets.each(function(e,k) { height = Math.max(e.getSize().y, height); })
@@ -158,7 +140,6 @@ var Exhibition = new Class({
 		}, this);
 	},
 
-
 	calculationWidth: function(targets) {
 		var width = 0;
 		targets.each(function(e,k) { width = Math.max(e.getSize().x, width); })
@@ -169,22 +150,17 @@ var Exhibition = new Class({
 			var margin = (width - size.x) / 2;
 			this.positions[index].x = position.x + margin;
 		}, this);
-//		return width;
 	},
 
 	getMaxWidth: function(targets) {
 		var width = 0;
-		targets.each(function(e,k) {
-			width = Math.max(e.getSize().x, width);
-		});
+		targets.each(function(e,k) { width = Math.max(e.getSize().x, width); });
 		return width;
 	},
 
 	getMaxHeight: function(targets) {
 		var height = 0;
-		targets.each(function(e,k) {
-			height = Math.max(e.getSize().y, height);
-		});
+		targets.each(function(e,k) {height = Math.max(e.getSize().y, height); });
 		return height;
 	},
 
