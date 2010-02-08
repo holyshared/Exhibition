@@ -65,158 +65,85 @@ var Exhibition = new Class({
 		var size = this.container.getSize();
 		var x = size.x/2, y = size.y/2, left = size.x/2, top = size.y/2, height = 0;
 
-
-		
-		
-		
-		
-		
+		var cols = [];
+		this.images = [];
 		this.positions = new Array();
 		this.elements.each(function(e,k) {
-			var size = e.getSize();
-			this.positions.push({x: left, y: top});
-		}, this);
-
-		
-		
-		var width = 0;
-		for (var column = 0; column < 5; column++) {
-//column
-			var current = column;
-			var targets = [];
-			while (current < this.elements.length) {
-				var e = this.elements[current];
-				var p = this.positions[current];
-				targets.push(e);
-				current = current + 5;
+			if (k > 1 && (k % 5) == 0) {
+				this.images.push(cols);
+				cols = [];
 			}
+			cols.push(e);
+		}, this);
+		(cols.length > 0) ? this.images.push(cols) : false;
 
-			var maxWidth = this.getMaxWidth(targets);
-		//	width = width + maxWidth + this.options.blank;
-//			width = width + maxWidth + this.options.blank;// + this.options.blank;
-			width = width + maxWidth;// + this.options.blank;
 
-			var s = column;
-			targets.each(function(e,k){
-				var current = s + (k * 5);
-				if (current < this.elements.length) {
-					var p = this.positions[current];
-					this.positions[current].x = p.x + width;
-				}
-			},this);
-		
+		for (var i = 0; l = this.elements.length, i < l; i++) {
+			this.positions.push({x: left, y: top});
 		}
 
-		var height = 0; targets = [];
-		this.elements.each(function(e,k){
-			if (k > 0 && (k % 5) == 0) {
-				var maxHeight = this.getMaxHeight(targets);
-				height = height + maxHeight;
 
-				var start = (k - 5 > 0) ? k - 5 : 0;
-				for (var current = start; current < k; current++) {
-					this.positions[current].y = p.y + height;
-				}
-				targets = [];
+
+
+		var height = 0, maxHeight = 0, index = 0;
+		for (var row = 0; rl = this.images.length, row < rl; row++) {
+			var cols = this.images[row];
+			for (var col = 0; cl = cols.length, col < cl; col++) {
+				var p = this.positions[index];
+				this.positions[index].y = p.y + height;
+				index++;
 			}
-			targets.push(e);
-		}, this);
-
-		
-		
-		
-		/*
-		
-		for (var column = 0; column < 5; column++) {
-			var current = column;
-			var targets = [];
-			while (current < this.elements.length) {
-				var e = this.elements[current];
-				var p = this.positions[current];
-				targets.push(e);
-				current = current + 5;
-			}
-
-			var maxHeight = this.getMaxHeight(targets);
-			//	width = width + maxWidth + this.options.blank;
-			height = height + maxHeight;// + this.options.blank;
-
-			var s = column;
-			targets.each(function(e,k){
-				var current = s + (k * 5);
-				if (current < this.elements.length) {
-					var p = this.positions[current];
-					this.positions[current].y = p.y + height;
-				}
-			},this);
+			height = height + this.getMaxHeight(cols) + this.options.blank;
+			this.calculationHeight(cols);
 		}
 		
-		*/
-		
-		
-		
-		
-		
-		
-		
-		
-		/*
-		this.elements.each(function(e,k) {
-			var size = e.getSize();
-//			this.positions.push({x: left, y: top});
-			var index = k + 1;
-			if (index > 1 && (index % 5) == 0) {
-				left = x;
-				top = top + height + this.options.blank;
-			} else {
-				left = left + size.x + this.options.blank;
+
+
+		var width = 0, maxWidth = 0;
+		for (var col = 0; col < 5; col++) {
+			var rows = [];
+			for (var row = 0; rl = this.images.length, row < rl; row++) {
+				if (this.images[row][col]) {
+					rows.push(this.images[row][col]);
+					var index = row * 5 + col;
+					var p = this.positions[index];
+					this.positions[index].x = p.x + width;
+				}
 			}
-			height = Math.max(height, size.y);
-		}, this);		
-		*/
-		
-		/*
-		
-		this.elements.each(function(e,k) {
-			var size = e.getSize();
-			this.positions.push({x: left, y: top});
-			var index = k + 1;
-			if (index > 1 && (index % 5) == 0) {
-				left = x;
-				top = top + height + this.options.blank;
-			} else {
-				left = left + size.x + this.options.blank;
-			}
-			height = Math.max(height, size.y);
-		}, this);
-
-		var targets = [];
-		this.elements.each(function(e,k) {
-			var index = k + 1;
-			if (index > 1 && (index % 5) == 0) {
-				this.calculationHeight(targets);
-				targets = [];
-			}
-			targets.push(e);
-		}, this);
-
-
-
-*/
-
+			width = width + this.getMaxWidth(rows) + this.options.blank;
+			this.calculationWidth(rows);
+		}
 
 
 		var e = this.elements[this.index];
-		var position = this.positions[this.index];
-		var ml = position.x - x + (e.getSize().x/2);
-		var mt = position.y - y + (e.getSize().y/2);
+		var p = this.positions[this.index];
+		var ml = p.x - x + (e.getSize().x/2);
+		var mt = p.y - y + (e.getSize().y/2);
 		this.elements.each(function(e,k) {
-			this.positions[k].x = this.positions[k].x - ml;
-			this.positions[k].y = this.positions[k].y - mt;
+			p = this.positions[k];
+			this.positions[k].x = p.x - ml;
+			this.positions[k].y = p.y - mt;
 		}, this);
 
 		return this.positions;
 	},
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 	calculationHeight: function(targets) {
@@ -242,7 +169,7 @@ var Exhibition = new Class({
 			var margin = (width - size.x) / 2;
 			this.positions[index].x = position.x + margin;
 		}, this);
-		return width;
+//		return width;
 	},
 
 	getMaxWidth: function(targets) {
@@ -261,38 +188,8 @@ var Exhibition = new Class({
 		return height;
 	},
 
-
-
-
-	adjustmentHeight: function(targets) {
-		var height = 0;
-		targets.each(function(e,k) {
-			height = Math.max(e.getSize().y, height);
-		})
-
-		targets.each(function(e,k) {
-			var size = e.getSize(), position = e.getPosition();
-			var margin = (height - size.y) / 2;
-			e.setStyle("top", position.y + margin);
-		})
-	},
-
-
-	adjustmentWidth: function(targets) {
-		var width = 0;
-		targets.each(function(e,k) {
-			width = Math.max(e.getSize().x, width);
-		})
-
-		targets.each(function(e,k) {
-			var size = e.getSize(), position = e.getPosition();
-			var margin = (width - size.x) / 2;
-			e.setStyle("left", position.x + margin);
-		})
-	},
-
-
 	adjustment: function() {
+/*
 		var targets = [];
 		this.elements.each(function(e,k) {
 			var index = k + 1;
@@ -302,46 +199,7 @@ var Exhibition = new Class({
 			}
 			targets.push(e);
 		}, this);
-
-//1,6,11,17
-/*
-		var targets = [];
-		for (var i = 0; i < 5; i++) {
-			var c = i;
-			while(c < this.elements.length - 1){
-				targets.push(this.elements[c]);
-				c = c + 5;
-			}
-			this.adjustmentWidth(targets);
-
-		}
-	*/
-
-
-
-
-/*
-		var positions = new Array();
-		this.elements.each(function(e,k) {
-			var size = e.getSize();
-			positions.push({x: left, y: top});
-			var index = k + 1;
-			if (index > 1 && (index % 5) == 0) {
-				left = x;
-				top = top + maxH + this.options.blank;
-			} else {
-				left = left + size.x + this.options.blank;
-			}
-			
-			maxH = Math.max(maxH, size.y);
-			
-		}, this);
 */
-
-
-
-
-
 	},
 
 	render:  function() {
@@ -350,10 +208,7 @@ var Exhibition = new Class({
 			var e = this.elements[k];
 			var start = e.getPosition();
 			var fx = e.get("morph", this.tween);
-			fx.start({
-				"left": [start.x, end.x],
-				"top": [start.y, end.y]
-			});
+			fx.start({"left": [start.x, end.x], "top": [start.y, end.y]});
 		}, this);
 	},
 

@@ -1,4 +1,7 @@
 window.addEvent("domready", function() {
+
+//	dbug.enable();
+
 	var container = $("container");
 	var exhibition = $("exhibition");
 
@@ -6,6 +9,6 @@ window.addEvent("domready", function() {
 	exhibition.setStyle("height", window.innerHeight);
 	
 	var images = exhibition.getElements("li");
-	new Exhibition(exhibition, images, {"defaultIndex": Math.round(images.length/2)});
+	new Exhibition(exhibition, images, {"defaultIndex": Math.round((images.length - 1)/2)});
 
 });
