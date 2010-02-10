@@ -1,0 +1,110 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<!-- TemplateBeginEditable name="doctitle" -->
+		<title>Exhibition.js</title>
+		<!-- TemplateEndEditable -->
+		<meta name="keywords" content="mootools,example,javascript,framework,programing,thumbnail,exhibition" />
+		<meta name="description" content="Exhibition" />
+		<meta name="author" content="Noritaka Horio" />
+		<meta name="copyright" content="2010 Noritaka Horio All rights reserved" />
+		<link rel="stylesheet" type="text/css" href="../Demos/css/style.css" media="screen,print" />
+		<script type="text/javascript" src="../Demos/js/libraries/mootools-1.2.4-core.js"></script>
+		<script type="text/javascript" src="../Demos/js/libraries/mootools-1.2.4.2-more.js"></script>
+		<script type="text/javascript" src="../Demos/js/libraries/clientcide.js"></script>
+		<!-- TemplateBeginEditable name="head" -->
+		<link rel="stylesheet" type="text/css" href="css/exhibition-home.css" media="screen,print" />
+		<script type="text/javascript" src="../Source/Exhibition.js"></script>
+		<script type="text/javascript" src="js/demo.js"></script>
+        <!-- TemplateEndEditable -->
+	</head>
+	<body>
+		<div id="warpper">
+			<div id="sidebar">
+				<h1><img title="Exhibition.js" src="images/exhibitionjs.png" alt="Exhibition.js" /></h1>
+				<ul id="gnavi">
+					<li><a class="active" title="Home" href="../Demos/index.html">home</a></li>
+					<li>
+						<h2>How to use</h2>
+						<ul>
+							<li><a title="Basic" href="../Demos/howtouse/basic.html">basic</a></li>
+							<li><a title="Horizontal" href="../Demos/howtouse/horizontal.html">horizontal</a></li>
+							<li><a title="Vertical" href="../Demos/howtouse/vertical.html">vertical</a></li>
+						</ul>
+					</li>
+					<li>
+						<h2>Demonstration</h2>
+						<ul>
+							<li><a title="Horizontal" href="../Demos/demos/horizontal.html">horizontal</a></li>
+							<li><a title="Vertical" href="../Demos/demos/vertical.html">vertical</a></li>
+						</ul>
+					</li>
+				</ul>
+				<dl id="properties">
+					<dt>download</dt>
+					<dd><a href="#">1.0 download</a></dd>
+					<dt>github</dt>
+					<dd><a title="github" href="http://github.com/holyshared/Exhibition">github@Exhibition</a></dd>
+				</dl>
+			</div>
+
+            <div id="main">
+				<!-- TemplateBeginEditable name="main" -->
+	            <div id="container">
+					<ul id="exhibition" class="exhibition">
+						<li><a href="#"><img src="images/home/img_tn1.jpg" width="152" height="228" /></a></li>
+						<li><a href="#"><img src="images/home/img_tn2.jpg" width="218" height="147" /></a></li>
+						<li><a href="#"><img src="images/home/img_tn3.jpg" width="154" height="191" /></a></li>
+						<li><a href="#"><img src="images/home/img_tn4.jpg" width="167" height="233" /></a></li>
+						<li><a href="#"><img src="images/home/img_tn5.jpg" width="301" height="187" /></a></li>
+
+						<li><a href="#"><img src="images/home/img_tn6.jpg" width="167" height="221" /></a></li>
+						<li><a href="#"><img src="images/home/img_tn7.jpg" width="251" height="167" /></a></li>
+						<li><a href="#"><img src="images/home/img_tn8.jpg" width="182" height="213" /></a></li>
+						<li><a href="#"><img src="images/home/img_tn9.jpg" width="249" height="178" /></a></li>
+						<li><a href="#"><img src="images/home/img_tn10.jpg" width="159" height="238" /></a></li>
+
+						<li><a href="#"><img src="images/home/img_tn1.jpg" width="152" height="228" /></a></li>
+						<li><a href="#"><img src="images/home/img_tn2.jpg" width="218" height="147" /></a></li>
+						<li><a href="#"><img src="images/home/img_tn3.jpg" width="154" height="191" /></a></li>
+						<li><a href="#"><img src="images/home/img_tn4.jpg" width="167" height="233" /></a></li>
+						<li><a href="#"><img src="images/home/img_tn5.jpg" width="301" height="187" /></a></li>
+
+						<li><a href="#"><img src="images/home/img_tn5.jpg" width="301" height="187" /></a></li>
+						<li><a href="#"><img src="images/home/img_tn6.jpg" width="167" height="221" /></a></li>
+						<li><a href="#"><img src="images/home/img_tn7.jpg" width="251" height="167" /></a></li>
+						<li><a href="#"><img src="images/home/img_tn8.jpg" width="182" height="213" /></a></li>
+						<li><a href="#"><img src="images/home/img_tn9.jpg" width="249" height="178" /></a></li>
+
+						<li><a href="#"><img src="images/home/img_tn10.jpg" width="159" height="238" /></a></li>
+						<li><a href="#"><img src="images/home/img_tn11.jpg" width="233" height="153" /></a></li>
+						<li><a href="#"><img src="images/home/img_tn1.jpg" width="152" height="228" /></a></li>
+						<li><a href="#"><img src="images/home/img_tn2.jpg" width="218" height="147" /></a></li>
+						<li><a href="#"><img src="images/home/img_tn3.jpg" width="154" height="191" /></a></li>
+
+						<li><a href="#"><img src="images/home/img_tn4.jpg" width="167" height="233" /></a></li>
+						<li><a href="#"><img src="images/home/img_tn5.jpg" width="301" height="187" /></a></li>
+						<li><a href="#"><img src="images/home/img_tn6.jpg" width="167" height="221" /></a></li>
+						<li><a href="#"><img src="images/home/img_tn7.jpg" width="251" height="167" /></a></li>
+						<li><a href="#"><img src="images/home/img_tn8.jpg" width="182" height="213" /></a></li>
+
+					</ul>
+	            </div>
+        		<!-- TemplateEndEditable -->
+            </div>
+
+            <div id="footer">
+	            <div id="developer">
+					<p class="avatar"><a title="Noritaka Horio"  href="http://www.sharedhat.com/"><img src="http://www.gravatar.com/avatar/75c365184edfa72ae30d56199ca56450?s=60" alt="Noritaka Horio" /></a></p>
+					<ul>
+						<li><strong>author:</strong><a href="http://www.sharedhat.com/">Noritaka Horio</a></li>
+						<li><strong>blog:</strong><a title="sharedhat.com" href="http://www.sharedhat.com/">http://www.sharedhat.com/</a></li>
+						<li><strong>email</strong><a title="Noritaka Horio" href="mailto:holy.shared.design@gmail.com">holy.shared.design@gmail.com</a></li>
+					</ul>
+	            </div>
+				<p id="copyright">copyright &copy; 2010 <a href="http://www.sharedhat.com/">Noritaka Horio</a> All rigths reserved.</p>
+            </div>
+        </div>
+	</body>
+</html>
