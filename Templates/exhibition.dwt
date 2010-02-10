@@ -1,43 +1,62 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
 	<head>
-		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-		<!-- TemplateBeginEditable name="doctitle" -->
-		<title>Exhibition.js</title>
-		<!-- TemplateEndEditable -->
-		<meta name="keywords" content="mootools,example,javascript,framework,programing,thumbnail,exhibition" />
-		<meta name="description" content="Exhibition" />
-		<meta name="author" content="Noritaka Horio" />
-		<meta name="copyright" content="2010 Noritaka Horio All rights reserved" />
-		<link rel="stylesheet" type="text/css" href="../Demos/css/style.css" media="screen,print" />
-		<script type="text/javascript" src="../Demos/js/libraries/mootools-1.2.4-core.js"></script>
-		<script type="text/javascript" src="../Demos/js/libraries/mootools-1.2.4.2-more.js"></script>
-		<script type="text/javascript" src="../Demos/js/libraries/clientcide.js"></script>
-		<!-- TemplateBeginEditable name="head" -->
-		<link rel="stylesheet" type="text/css" href="css/exhibition-home.css" media="screen,print" />
-		<script type="text/javascript" src="../Source/Exhibition.js"></script>
-		<script type="text/javascript" src="js/demo.js"></script>
-        <!-- TemplateEndEditable -->
-	</head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<!-- TemplateBeginEditable name="doctitle" -->
+	<title>Exhibition.js</title>
+	<!-- TemplateEndEditable -->
+	<meta name="keywords" content="mootools,example,javascript,framework,programing,thumbnail,exhibition" />
+	<meta name="description" content="Exhibition" />
+	<meta name="author" content="Noritaka Horio" />
+	<meta name="copyright" content="2010 Noritaka Horio All rights reserved" />
+	<link rel="stylesheet" type="text/css" href="../Demos/css/style.css" media="screen,print" />
+	<script type="text/javascript" src="../Demos/js/libraries/mootools-1.2.4-core.js"></script>
+	<script type="text/javascript" src="../Demos/js/libraries/mootools-1.2.4.2-more.js"></script>
+	<script type="text/javascript" src="../Demos/js/libraries/clientcide.js"></script>
+	<!-- TemplateBeginEditable name="head" -->
+	<link rel="stylesheet" type="text/css" href="css/exhibition-home.css" media="screen,print" />
+	<script type="text/javascript" src="../Source/Exhibition.js"></script>
+	<script type="text/javascript" src="js/demo.js"></script>
+	<!-- TemplateEndEditable -->
+	<!-- TemplateParam name="category" type="text" value="" -->
+</head>
 	<body>
 		<div id="warpper">
 			<div id="sidebar">
-				<h1><img title="Exhibition.js" src="images/exhibitionjs.png" alt="Exhibition.js" /></h1>
+				<h1><img title="Exhibition.js" src="../Demos/images/exhibitionjs.png" alt="Exhibition.js" /></h1>
 				<ul id="gnavi">
-					<li><a class="active" title="Home" href="../Demos/index.html">home</a></li>
+					<li>
+                    	<!-- TemplateBeginIf cond="category=='home'" --><a title="Home" class="active" href="../Demos/index.html">home</a><!-- TemplateEndIf -->    
+                    	<!-- TemplateBeginIf cond="category!='home'" --><a title="Home" href="../Demos/index.html">home</a><!-- TemplateEndIf -->    
+                    </li>
 					<li>
 						<h2>How to use</h2>
 						<ul>
-							<li><a title="Basic" href="../Demos/howtouse/basic.html">basic</a></li>
-							<li><a title="Horizontal" href="../Demos/howtouse/horizontal.html">horizontal</a></li>
-							<li><a title="Vertical" href="../Demos/howtouse/vertical.html">vertical</a></li>
-						</ul>
+							<li>
+								<!-- TemplateBeginIf cond="category=='htu-basic'" --><a title="Basic" class="active" href="../Demos/howtouse/basic.html">basic</a><!-- TemplateEndIf -->
+                                <!-- TemplateBeginIf cond="category!='htu-basic'" --><a title="Basic" href="../Demos/howtouse/basic.html">basic</a><!-- TemplateEndIf -->    
+                            </li>
+							<li>
+								<!-- TemplateBeginIf cond="category=='htu-horizontal'" --><a title="Horizontal" class="active" href="../Demos/howtouse/horizontal.html">horizontal</a><!-- TemplateEndIf -->
+                                <!-- TemplateBeginIf cond="category!='htu-horizontal'" --><a title="Horizontal" href="../Demos/howtouse/horizontal.html">horizontal</a><!-- TemplateEndIf -->    
+							</li>
+							<li>
+								<!-- TemplateBeginIf cond="category=='htu-vertical'" --><a title="Vertical" class="active" href="../Demos/howtouse/vertical.html">vertical</a><!-- TemplateEndIf -->    
+                                <!-- TemplateBeginIf cond="category!='htu-vertical'" --><a title="Vertical" href="../Demos/howtouse/vertical.html">vertical</a><!-- TemplateEndIf -->    
+							</li>
+    					</ul>
 					</li>
 					<li>
 						<h2>Demonstration</h2>
 						<ul>
-							<li><a title="Horizontal" href="../Demos/demos/horizontal.html">horizontal</a></li>
-							<li><a title="Vertical" href="../Demos/demos/vertical.html">vertical</a></li>
+							<li>
+								<!-- TemplateBeginIf cond="category=='demos-horizontal'" --><a title="Horizontal" class="active" href="../Demos/demos/horizontal.html">horizontal</a><!-- TemplateEndIf -->    
+                                <!-- TemplateBeginIf cond="category!='demos-horizontal'" --><a title="Horizontal" href="../Demos/demos/horizontal.html">horizontal</a><!-- TemplateEndIf -->    
+                            </li>
+							<li>
+								<!-- TemplateBeginIf cond="category=='demos-vertical'" --><a title="Vertical" class="active" href="../Demos/demos/vertical.html">vertical</a><!-- TemplateEndIf -->
+                                <!-- TemplateBeginIf cond="category!='demos-vertical'" --><a title="Vertical" href="../Demos/demos/vertical.html">vertical</a><!-- TemplateEndIf -->
+                            </li>
 						</ul>
 					</li>
 				</ul>
