@@ -1,7 +1,7 @@
-name: Plugin Name
-author: holy
+name: Exhibition
+author: holyshared
 category: Interface
-tags: [animation, canvas]
+tags: [animation, thumnail, gallery]
 #docs: http://url.to.docs
-#demo: http://url.to.demo
-#current: 0.5
+demo: http://holyshared.github.com/Exhibition
+current: 1.0
