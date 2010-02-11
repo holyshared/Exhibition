@@ -8,7 +8,30 @@ authors:
 - Noritaka Horio
 
 requires:
-- core:1.2.4/ '*'
+  core/1.2.4:
+  - Core/Core
+  - Core/Browser
+  - Native/Array
+  - Native/Function
+  - Native/Number
+  - Native/String
+  - Native/Hash
+  - Native/Event
+  - Class/Class
+  - Class/Class.Extras
+  - Element/Element
+  - Element/Element.Event
+  - Element/Element.Style
+  - Element/Element.Dimensions
+  - Utilities/Selecter
+  - Utilities/DomReady
+  - Fx/Fx
+  - Fx/Fx.CSS
+  - Fx/Fx.Tween
+  - Fx/Fx.Morph
+  - Fx/Fx.Transitions
+more/1.2.4.2:
+  - Assets
 
 provides: [Exhibition,Exhibition.Horizontal,Exhibition.Vertical]
 ...
