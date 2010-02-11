@@ -175,3 +175,9 @@ p#copyright {
 	float: right;
 	text-align: right;
 }
+
+
+
+div#container.howto {
+	margin-left: 250px;
+}

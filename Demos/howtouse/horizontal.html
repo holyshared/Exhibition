@@ -20,6 +20,7 @@
 		<script type="text/javascript" src="../js/libraries/highlighter/shBrushJScript.js"></script>
 		<script type="text/javascript" src="../js/libraries/highlighter/shBrushCss.js"></script>
 		<script type="text/javascript" src="../js/libraries/highlighter/shBrushXml.js"></script>
+		<script type="text/javascript" src="../js/common.js"></script>
         <!-- InstanceEndEditable -->
 	<!-- InstanceParam name="category" type="text" value="htu-horizontal" -->
 </head>
@@ -73,6 +74,74 @@
 
             <div id="main">
 				<!-- InstanceBeginEditable name="main" -->
+<div id="container" class="howto">
+<h2>How to use.</h2>
+
+<h3>HTML</h3>
+<pre class="brush: xml">
+	<div id="container">
+		<ul id="exhibition">
+			<li><a href="#"><img src="images/home/img_tn1.jpg" width="152" height="228" alt="" /></a></li>
+			<li><a href="#"><img src="images/home/img_tn2.jpg" width="218" height="147" alt="" /></a></li>
+			<li><a href="#"><img src="images/home/img_tn3.jpg" width="154" height="191" alt="" /></a></li>
+			<li><a href="#"><img src="images/home/img_tn4.jpg" width="167" height="233" alt=""  /></a></li>
+			<li><a href="#"><img src="images/home/img_tn5.jpg" width="301" height="187" alt=""  /></a></li>
+
+			<li><a href="#"><img src="images/home/img_tn6.jpg" width="167" height="221" alt="" /></a></li>
+			<li><a href="#"><img src="images/home/img_tn7.jpg" width="251" height="167" alt="" /></a></li>
+			<li><a href="#"><img src="images/home/img_tn8.jpg" width="182" height="213" alt="" /></a></li>
+			<li><a href="#"><img src="images/home/img_tn9.jpg" width="249" height="178" alt="" /></a></li>
+			<li><a href="#"><img src="images/home/img_tn10.jpg" width="159" height="238" alt="" /></a></li>
+
+			<li><a href="#"><img src="images/home/img_tn1.jpg" width="152" height="228" alt="" /></a></li>
+			<li><a href="#"><img src="images/home/img_tn2.jpg" width="218" height="147" alt="" /></a></li>
+			<li><a href="#"><img src="images/home/img_tn3.jpg" width="154" height="191" alt="" /></a></li>
+			<li><a href="#"><img src="images/home/img_tn4.jpg" width="167" height="233" alt="" /></a></li>
+			<li><a href="#"><img src="images/home/img_tn5.jpg" width="301" height="187" alt="" /></a></li>
+		</ul>
+	</div>
+</pre>
+
+<h3>CSS</h3>
+<pre class="brush: css">
+/* Exhibition
+----------------------------------*/
+ul#exhibition {
+	overflow: hidden;
+	list-style: none;
+	position: relative;
+}
+
+ul#exhibition li {
+	position: absolute;
+}
+
+ul#exhibition li a {
+	display: block;
+	padding: 10px;
+	background: #333333;
+}
+
+ul#exhibition li a:hover {
+	background: #3c94af;
+}
+
+ul#exhibition li.active a {
+	background: #3c94af;
+}
+</pre>
+
+<h3>Javascript</h3>
+<pre class="brush: javascript">
+window.addEvent("domready", function() {
+	var container = $("container");
+	var exhibition = $("exhibition");
+
+	var images = exhibition.getElements("li");
+	new Exhibition.Horizontal(container, images, {});
+});
+</pre>
+</div>
         		<!-- InstanceEndEditable -->
             </div>
 
