@@ -1,17 +1,21 @@
 @charset "utf-8";
 
-h1 {
-	font-size: 1.2em;
-	text-transform: uppercase;
-	position: absolute;
-	z-index: 2;
-	background: #333333;
-	padding: 5px 15px;
-	color: #FFFFFF;
+body, html {
+	height: 100%;
 }
 
 div#container {
+	text-align: left;
+	margin: 0px auto 0px auto;
 	overflow: hidden;
+}
+
+* html div#container {
+	height: 100%;
+}
+
+body > #container {
+	height: auto;
 }
 
 ul#exhibition {
@@ -37,4 +41,3 @@ ul#exhibition li a:hover {
 ul#exhibition li.active a {
 	background: #3c94af;
 }
-
