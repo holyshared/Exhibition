@@ -75,30 +75,36 @@
             <div id="main">
 				<!-- InstanceBeginEditable name="main" -->
 <div id="container" class="howto">
-<h2>How to use.</h2>
-
+<h2>How to use</h2>
+<p><em>Exhibition.Vertical.js</em> use becomes as follows.</p>
+<div class="section">
 <h3>HTML</h3>
+<p>The mark putting of HTML becomes as follows.</p>
 <pre class="brush: xml">
-&lt;div id="container"&gt;
-	&lt;ul id="gradually-container" class="gradually"&gt;
-		&lt;li&gt;&lt;img title="image1 title" alt="image1 discription" src="images/demo1.jpg" width="650" height="275" /&gt;&lt;/li&gt;
-		&lt;li&gt;&lt;img title="image2 title" alt="image2 discription" src="images/demo2.jpg" width="650" height="275" /&gt;&lt;/li&gt;
-		&lt;li&gt;&lt;img title="image3 title" alt="image3 discription" src="images/demo1.jpg" width="650" height="275" /&gt;&lt;/li&gt;
-		&lt;li&gt;&lt;img title="image4 title" alt="image4 discription" src="images/demo2.jpg" width="650" height="275" /&gt;&lt;/li&gt;
-		&lt;li&gt;&lt;img title="image5 title" alt="image5 discription" src="images/demo1.jpg" width="650" height="275" /&gt;&lt;/li&gt;
-		&lt;li&gt;&lt;img title="image6 title" alt="image6 discription" src="images/demo2.jpg" width="650" height="275" /&gt;&lt;/li&gt;
-		&lt;li&gt;&lt;img title="image7 title" alt="image7 discription" src="images/demo1.jpg" width="650" height="275" /&gt;&lt;/li&gt;
-		&lt;li&gt;&lt;img title="image8 title" alt="image8 discription" src="images/demo2.jpg" width="650" height="275" /&gt;&lt;/li&gt;
-		&lt;li&gt;&lt;img title="image9 title" alt="image9 discription" src="images/demo1.jpg" width="650" height="275" /&gt;&lt;/li&gt;
-		&lt;li&gt;&lt;img title="image10 title" alt="image10 discription" src="images/demo2.jpg" width="650" height="275" /&gt;&lt;/li&gt;
-		&lt;li&gt;&lt;img title="image11 title" alt="image11 discription" src="images/demo1.jpg" width="650" height="275" /&gt;&lt;/li&gt;
-		&lt;li&gt;&lt;img title="image12 title" alt="image12 discription" src="images/demo2.jpg" width="650" height="275" /&gt;&lt;/li&gt;
-	&lt;/ul&gt;
-	&lt;p class="information"&gt;&nbsp;&lt;/p&gt;
-&lt;/div&gt;
-</pre>
+    &lt;div id="container"&gt;
+        &lt;ul id="exhibition"&gt;
+            &lt;li&gt;&lt;a href="#"&gt;&lt;img src="../Demos/images/home/img_tn1.jpg" width="152" height="228" /&gt;&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="#"&gt;&lt;img src="../Demos/images/home/img_tn2.jpg" width="218" height="147" /&gt;&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="#"&gt;&lt;img src="../Demos/images/home/img_tn3.jpg" width="154" height="191" /&gt;&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="#"&gt;&lt;img src="../Demos/images/home/img_tn4.jpg" width="167" height="233" /&gt;&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="#"&gt;&lt;img src="../Demos/images/home/img_tn5.jpg" width="301" height="187" /&gt;&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="#"&gt;&lt;img src="../Demos/images/home/img_tn6.jpg" width="167" height="221" /&gt;&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="#"&gt;&lt;img src="../Demos/images/home/img_tn7.jpg" width="251" height="167" /&gt;&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="#"&gt;&lt;img src="../Demos/images/home/img_tn8.jpg" width="182" height="213" /&gt;&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="#"&gt;&lt;img src="../Demos/images/home/img_tn9.jpg" width="249" height="178" /&gt;&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="#"&gt;&lt;img src="../Demos/images/home/img_tn10.jpg" width="159" height="238" /&gt;&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="#"&gt;&lt;img src="../Demos/images/home/img_tn1.jpg" width="152" height="228" /&gt;&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="#"&gt;&lt;img src="../Demos/images/home/img_tn2.jpg" width="218" height="147" /&gt;&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="#"&gt;&lt;img src="../Demos/images/home/img_tn3.jpg" width="154" height="191" /&gt;&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="#"&gt;&lt;img src="../Demos/images/home/img_tn4.jpg" width="167" height="233" /&gt;&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="#"&gt;&lt;img src="../Demos/images/home/img_tn5.jpg" width="301" height="187" /&gt;&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/div&gt;</pre>
+</div>
 
+<div class="section">
 <h3>CSS</h3>
+<p>The description of CSS becomes as follows.<br />It becomes full screen specifying 100% in height for body and the html element.</p>
 <pre class="brush: css">
 div#container {
 	overflow: hidden;
@@ -108,6 +114,7 @@ ul#exhibition {
 	overflow: hidden;
 	list-style: none;
 	position: relative;
+	margin: 0px auto 0px auto;
 }
 
 ul#exhibition li {
@@ -128,23 +135,28 @@ ul#exhibition li.active a {
 	background: #3c94af;
 }
 </pre>
+</div>
 
-
+<div class="section">
 <h3>Javascript</h3>
+<p>Javascript is described at the end. The height of the screen is acquired and it specifies it for container element (<em>div#container,ul#exhibition</em>). <br />
+It is necessary to note it because it doesn't become full screen if this processing is not done.</p>
 <pre class="brush: javascript">
 window.addEvent("domready", function() {
+
+	var height = (Browser.Engine.trident && Browser.Engine.version <= 6) ? document.documentElement.clientHeight : window.innerHeight;
 	var container = $("container");
 	var exhibition = $("exhibition");
 
-	container.setStyle("height", window.innerHeight);
-	exhibition.setStyle("height", window.innerHeight);
+	container.setStyle("height", height);
+	exhibition.setStyle("height", height);
 
 	var images = exhibition.getElements("li");
-	new Exhibition(exhibition, images, {
-    	"defaultIndex": Math.round((images.length - 1)/2)
-	});
+	new Exhibition.Vertical(exhibition, images, {"defaultIndex": Math.round((images.length - 1)/2)});
 });
 </pre>
+</div>
+
        			</div>
  		<!-- InstanceEndEditable -->
             </div>

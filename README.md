@@ -8,8 +8,7 @@ How to use
 
 A description necessary to use Exhibition is as follows.
 
-HTML to use Exhibition is described in the beginning. 
-HTML is as follows. 
+The mark putting of HTML becomes as follows.
 
 	#HTML
 	<div id="container">
@@ -52,7 +51,8 @@ HTML is as follows.
 		</ul>
 	</div>
 
-
+	The description of CSS becomes as follows.
+	It becomes full screen specifying 100% in height for body and the html element.
 	#CSS
 	div#container {
 		overflow: hidden;
@@ -77,27 +77,28 @@ HTML is as follows.
 	ul.exhibition li a:hover {
 		background: #3c94af;
 	}
-	
+
 	ul.exhibition li.active a {
 		background: #3c94af;
 	}
-	
-	Next, javascript is described. 
-	The element and the image that plays the role of the container are specified. 
-	The option is specified now.
+
+	Javascript is described at the end. The height of the screen is acquired and it specifies it for container element (*div#container*,*ul#exhibition*). 
+	It is necessary to note it because it doesn't become full screen if this processing is not done.
 
 	#JS
-	window.addEvent("domready", function() {
-	
-		var container = $("container");
-		var exhibition = $("exhibition");
-	
-		container.setStyle("height", window.innerHeight);
-		exhibition.setStyle("height", window.innerHeight);
-		
-		var images = exhibition.getElements("li");
-		new Exhibition(exhibition, images, {"defaultIndex": Math.round((images.length - 1)/2)});
-	});
+    window.addEvent("domready", function() {
+
+        var height = (Browser.Engine.trident && Browser.Engine.version <= 6) ? document.documentElement.clientHeight : window.innerHeight;
+        var container = $("container");
+        var exhibition = $("exhibition");
+
+        container.setStyle("height", height);
+        exhibition.setStyle("height", height);
+
+        var images = exhibition.getElements("li");
+        new Exhibition(exhibition, images, {"defaultIndex": Math.round((images.length - 1)/2)});
+
+    });
 
 Options
 -------

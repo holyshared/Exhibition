@@ -76,11 +76,11 @@
 				<!-- InstanceBeginEditable name="main" -->
 <div id="container" class="howto">
 
-<h2>How to use.</h2>
-<p>exhibition use becomes as follows.</p>
-
+<h2>How to use</h2>
+<p><em>Exhibition.js</em> use becomes as follows.</p>
 <div class="section">
     <h3>HTML</h3>
+    <p>The mark putting of HTML becomes as follows.</p>
     <pre class="brush: xml">
     &lt;div id="container"&gt;
         &lt;ul id="exhibition"&gt;
@@ -107,6 +107,7 @@
 
 <div class="section">
     <h3>CSS</h3>
+    <p>The description of CSS becomes as follows.<br />It becomes full screen specifying 100% in height for body and the html element.</p>
     <pre class="brush: css">
     body, html {
         height: 100%;
@@ -149,12 +150,13 @@
     ul#exhibition li.active a {
         background: #3c94af;
     }
-    
     </pre>
 </div>
 
 <div class="section">
     <h3>Javascript</h3>
+    <p>Javascript is described at the end. The height of the screen is acquired and it specifies it for container element (<em>div#container,ul#exhibition</em>). <br />
+It is necessary to note it because it doesn't become full screen if this processing is not done.</p>
     <pre class="brush: javascript">
     window.addEvent("domready", function() {
     

@@ -180,4 +180,20 @@ p#copyright {
 
 div#container.howto {
 	margin-left: 250px;
+	padding-top: 50px;
+}
+
+div#container.howto h2 {
+	font-size: 1.8em;
+	text-transform: uppercase;
+	margin-bottom: 10px;
+}
+
+div#container.howto h3 {
+	font-size: 1.6em;
+	margin-bottom: 10px;
+}
+
+div.section {
+	margin-bottom: 25px;
 }
