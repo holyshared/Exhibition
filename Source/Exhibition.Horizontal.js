@@ -47,64 +47,60 @@ Exhibition.Horizontal = new Class({
 		"transition": "expo:out",
 		"blank": 50
 /*
-		onChange: $empty
+		onPreload: $empty
 		onNext: $empty
 		onPrev: $empty
+		onChange: $empty
+		onActive: $empty
 */
 	},
 
 	initialize: function (container,sources,options) {
 		this.parent(container,sources,options);
+		delete this.createMatrix;
+		delete this.matrix;
 	},
 
-	reset: function() {
+	setSize: function() {
+		this.container.setStyle("height", this.getMaxHeight(this.elements));
+	},
+
+	setDefalutPositions: function() {
 		var positions = this.calculation();
 		positions.each(function(p,k){
 			var e = this.elements[k];
-			e.setStyle("left", p.x);
+			e.setStyles({"left": p.x, "top": p.y});
 		}, this);
 		this.elements.removeClass("active");
 		this.elements[this.index].addClass("active");
 	},
 
-	calculationHeight: function() {
-		this.maxHeight = 0;
-		this.baseTop = 0;
-		this.elements.each(function(e,k) {
-			var height = e.getSize().y;
-			if (this.maxHeight < height) {
-				this.maxHeight = height;
-				this.baseTop = height / 2;
-			}
-		}, this);
+	calculation: function() {
+		this.calculationPositions();
+		this.calculationHeight(this.elements);
+		this.calculationCenter();
+		return this.positions;
 	},
 
-	calculation: function() {
+	calculationPositions: function() {
 		var size = this.container.getSize();
-		var x = size.x/2, y = size.y/2, l = size.x/2;
-		var positions = new Array();
+		var y = 0, l = size.x/2;
+		this.positions = new Array();
 		this.elements.each(function(e,k) {
 			var size = e.getSize();
-			positions.push({x: l, y: y});
+			this.positions.push({x: l, y: y});
 			l = l + size.x + this.options.blank;
 		}, this);
-
-		var e = this.elements[this.index];
-		var m = positions[this.index].x - x + (e.getSize().x/2);
-		this.elements.each(function(e,k) {
-			positions[k].x = positions[k].x - m;
-		});
-		return positions;
 	},
 
-	adjustment: function(){
-		this.calculationHeight();
+	calculationCenter: function() {
+		var size = this.container.getSize();
+		var x = size.x/2;
+		var e = this.elements[this.index];
+		var mx = this.positions[this.index].x - x + (e.getSize().x/2);
 		this.elements.each(function(e,k) {
-			var height = e.getSize().y;
-			var margin = this.baseTop - (height / 2);
-			e.setStyle("top", margin);
+			this.positions[k].x = this.positions[k].x - mx;
 		}, this);
-		this.container.setStyle("height", this.maxHeight);
 	},
 
 	render: function() {
@@ -112,7 +108,7 @@ Exhibition.Horizontal = new Class({
 		positions.each(function(p,k) {
 			var e = this.elements[k];
 			var x = e.getPosition().x;
-			var fx = e.get("tween", this.tween);
+			var fx = e.get("tween", this.fx);
 			fx.start("left", [x, p.x]);
 		}, this);
 	}

@@ -8,6 +8,7 @@ ul#exhibition {
 	overflow: hidden;
 	list-style: none;
 	position: relative;
+	margin-top: 100px;
 }
 
 ul#exhibition li {

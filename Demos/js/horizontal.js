@@ -23,7 +23,7 @@ var Horizontal = {
 
 		this.container = $("exhibition");
 		this.preview = $("preview");
-		this.container.setStyle("height", window.innerHeight);
+//		this.container.setStyle("height", window.innerHeight);
 		this.startSize = {x:0,y:0};
 		this.loadImages = new Array();
 

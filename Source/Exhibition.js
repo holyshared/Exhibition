@@ -45,11 +45,13 @@ var Exhibition = new Class({
 		"defaultIndex": 0,
 		"duration": 300,
 		"transition": "expo:out",
-		"blank": 50
+		"blank": 50,
+		"columns": 5
 /*
-		onChange: $empty
+		onPreload: $empty
 		onNext: $empty
 		onPrev: $empty
+		onChange: $empty
 		onActive: $empty
 */
 	},
@@ -58,22 +60,25 @@ var Exhibition = new Class({
 		this.setOptions(options);
 		this.container = container;
 		this.elements = sources;
-		this.tween = {
+		this.index = this.options.defaultIndex;
+		this.properties = [];
+		this.counter = 0;
+		this.fx = {
 			"duration": this.options.duration,
 			"transition": this.options.transition,
 			"onComplete": this.onComplete.bind(this)
 		};
-		this.index = this.options.defaultIndex;
-		this.properties = [];
-		this.counter = 0;
-		this.addEvent("onImagePreload", this.onImagePreload.bind(this));
-		this.preload();
-		this.reset();
-		this.adjustment();
+		this.createMatrix();
+		this.setSize();
 		this.setEvents();
+		this.setDefalutPositions();
+		this.preload();
 	},
 
-	reset: function() {
+	setSize: function() {
+	},
+
+	setDefalutPositions: function() {
 		var positions = this.calculation();
 		positions.each(function(p,k){
 			var e = this.elements[k];
@@ -85,32 +90,40 @@ var Exhibition = new Class({
 	},
 
 	calculation: function() {
-		var size = this.container.getSize();
-		var x = size.x/2, y = size.y/2, left = size.x/2, top = size.y/2, height = 0;
+		this.calculationPositions();
+		this.adjustmentHeight();
+		this.adjustmentWidth();
+		this.calculationCenter();
+		return this.positions;
+	},
 
+	createMatrix: function(){
+		this.matrix = [];
 		var cols = [];
-		this.images = [];
-		this.positions = new Array();
 		this.elements.each(function(e,k) {
-			if (k > 1 && (k % 5) == 0) {
-				this.images.push(cols);
+			if (k > 1 && (k % this.options.columns) == 0) {
+				this.matrix.push(cols);
 				cols = [];
 			}
 			cols.push(e);
 		}, this);
-		(cols.length > 0) ? this.images.push(cols) : false;
+		(cols.length > 0) ? this.matrix.push(cols) : false;
+		return this.matrix;
+	},
 
-
+	calculationPositions: function() {
+		var size = this.container.getSize();
+		var left = size.x/2, top = size.y/2;
+		this.positions = new Array();
 		for (var i = 0; l = this.elements.length, i < l; i++) {
 			this.positions.push({x: left, y: top});
 		}
+	},
 
-
-
-
+	adjustmentHeight: function() {
 		var height = 0, maxHeight = 0, index = 0;
-		for (var row = 0; rl = this.images.length, row < rl; row++) {
-			var cols = this.images[row];
+		for (var row = 0; rl = this.matrix.length, row < rl; row++) {
+			var cols = this.matrix[row];
 			for (var col = 0; cl = cols.length, col < cl; col++) {
 				var p = this.positions[index];
 				this.positions[index].y = p.y + height;
@@ -119,15 +132,15 @@ var Exhibition = new Class({
 			height = height + this.getMaxHeight(cols) + this.options.blank;
 			this.calculationHeight(cols);
 		}
-		
+	},
 
-
+	adjustmentWidth: function() {
 		var width = 0, maxWidth = 0;
-		for (var col = 0; col < 5; col++) {
+		for (var col = 0; col < this.options.columns; col++) {
 			var rows = [];
-			for (var row = 0; rl = this.images.length, row < rl; row++) {
-				if (this.images[row][col]) {
-					rows.push(this.images[row][col]);
+			for (var row = 0; rl = this.matrix.length, row < rl; row++) {
+				if (this.matrix[row][col]) {
+					rows.push(this.matrix[row][col]);
 					var index = row * 5 + col;
 					var p = this.positions[index];
 					this.positions[index].x = p.x + width;
@@ -136,21 +149,8 @@ var Exhibition = new Class({
 			width = width + this.getMaxWidth(rows) + this.options.blank;
 			this.calculationWidth(rows);
 		}
-
-
-		var e = this.elements[this.index];
-		var p = this.positions[this.index];
-		var ml = p.x - x + (e.getSize().x/2);
-		var mt = p.y - y + (e.getSize().y/2);
-		this.elements.each(function(e,k) {
-			p = this.positions[k];
-			this.positions[k].x = p.x - ml;
-			this.positions[k].y = p.y - mt;
-		}, this);
-
-		return this.positions;
 	},
-	
+
 	calculationHeight: function(targets) {
 		var height = 0;
 		targets.each(function(e,k) { height = Math.max(e.getSize().y, height); })
@@ -161,6 +161,7 @@ var Exhibition = new Class({
 			var margin = (height - size.y) / 2;
 			this.positions[index].y = position.y + margin;
 		}, this);
+		return height;
 	},
 
 	calculationWidth: function(targets) {
@@ -172,6 +173,21 @@ var Exhibition = new Class({
 			var size = e.getSize();
 			var margin = (width - size.x) / 2;
 			this.positions[index].x = position.x + margin;
+		}, this);
+		return width;
+	},
+
+	calculationCenter: function() {
+		var size = this.container.getSize();
+		var x = size.x/2, y = size.y/2;
+		var e = this.elements[this.index];
+		var p = this.positions[this.index];
+		var ml = p.x - x + (e.getSize().x/2);
+		var mt = p.y - y + (e.getSize().y/2);
+		this.elements.each(function(e,k) {
+			p = this.positions[k];
+			this.positions[k].x = p.x - ml;
+			this.positions[k].y = p.y - mt;
 		}, this);
 	},
 
@@ -187,15 +203,12 @@ var Exhibition = new Class({
 		return height;
 	},
 
-	adjustment: function() {
-	},
-
 	render:  function() {
 		var positions = this.calculation();
 		positions.each(function(end,k) {
 			var e = this.elements[k];
 			var start = e.getPosition();
-			var fx = e.get("morph", this.tween);
+			var fx = e.get("morph", this.fx);
 			fx.start({"left": [start.x, end.x], "top": [start.y, end.y]});
 		}, this);
 	},
@@ -210,6 +223,7 @@ var Exhibition = new Class({
 			}.bind(this);
 			a.addEvent("click", h);
 		}, this);
+		this.addEvent("onImagePreload", this.onImagePreload.bind(this));
 	},
 
 	onImagePreload: function() {
@@ -220,6 +234,14 @@ var Exhibition = new Class({
 		}.bind(this));
 		this.fireEvent("preload", [this.elements,this.properties]);
 		this.activate(this.index);
+	},
+
+	onComplete: function() {
+		this.counter++;
+		if (this.counter >= this.elements.length) {
+			this.fireEvent("change", [this.index, this.elements[this.index]]);
+			this.counter = 0;
+		}
 	},
 
 	preload: function(){
@@ -247,14 +269,6 @@ var Exhibition = new Class({
 			this.index--;
 			this.fireEvent("prev", [this.index, this.elements[this.index]]);
 			this.activate(prevIndex);
-		}
-	},
-
-	onComplete: function() {
-		this.counter++;
-		if (this.counter >= this.elements.length) {
-			this.fireEvent("change", [this.index, this.elements[this.index]]);
-			this.counter = 0;
 		}
 	},
 

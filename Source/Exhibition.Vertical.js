@@ -42,74 +42,67 @@ Exhibition.Vertical = new Class({
 	Extends: Exhibition,
 
 	options: {
-/*
-	onChange: $empty
-	onNext: $empty
-	onPrev: $empty
-*/
 		"defaultIndex": 0,
 		"duration": 300,
 		"transition": "expo:out",
-		"blank": 50,
-		"height": null
+		"blank": 50
+/*
+		onPreload: $empty
+		onNext: $empty
+		onPrev: $empty
+		onChange: $empty
+		onActive: $empty
+*/
 	},
 
 	initialize: function (container,sources,options) {
 		this.parent(container,sources,options);
-		if (this.options.height) {
-			this.container.setStyle("height", this.options.height);
-		};
+		delete this.createMatrix;
+		delete this.matrix;
 	},
 
-	reset: function() {
+	setSize: function() {
+		this.container.setStyle("width", this.getMaxWidth(this.elements));
+	},
+
+	setDefalutPositions: function() {
 		var positions = this.calculation();
 		positions.each(function(p,k){
 			var e = this.elements[k];
-			e.setStyle("top", p.y);
+			e.setStyles({"left": p.x, "top": p.y});
 		}, this);
 		this.elements.removeClass("active");
 		this.elements[this.index].addClass("active");
 	},
 
-	calculationWidth: function() {
-		this.maxWidth = 0;
-		this.baseLeft = 0;
-		this.elements.each(function(e,k) {
-			var width = e.getSize().x;
-			if (this.maxWidth < width) {
-				this.maxWidth = width;
-				this.baseLeft = width / 2;
-			}
-		}, this);
+	calculation: function() {
+		this.calculationPositions();
+		this.calculationWidth(this.elements);
+		this.calculationCenter();
+		return this.positions;
 	},
 
-	calculation: function() {
+	calculationPositions: function() {
 		var size = this.container.getSize();
-		var x = size.x/2, y = $(document.body).getSize().y/2, t = $(document.body).getSize().y/2;
-		var positions = new Array();
+		var t = size.y/2, x = size.x/2;
+		this.positions = new Array();
 		this.elements.each(function(e,k) {
 			var size = e.getSize();
-			positions.push({x: x, y: t});
+			this.positions.push({x: x, y: t});
 			t = t + size.y + this.options.blank;
 		}, this);
-
-		var e = this.elements[this.index];
-		var m = positions[this.index].y - y + (e.getSize().y/2);
-		this.elements.each(function(e,k) {
-			positions[k].y = positions[k].y - m;
-		});
-
-		return positions;
 	},
 
-	adjustment: function(){
-		this.calculationWidth();
+	calculationCenter: function() {
+		var size = this.container.getSize();
+		var y = size.y/2, x = size.x/2;
+		var e = this.elements[this.index];
+		var my = this.positions[this.index].y - y + (e.getSize().y/2);
+		var mx = this.positions[this.index].x - x + (e.getSize().x/2);
 		this.elements.each(function(e,k) {
-			var width = e.getSize().x;
-			var margin = this.baseLeft - (width / 2);
-			e.setStyle("left", margin);
+			this.positions[k].y = this.positions[k].y - my;
+			this.positions[k].x = this.positions[k].x - mx;
 		}, this);
-		this.container.setStyle("width", this.maxWidth);
 	},
 
 	render: function() {
@@ -117,7 +110,7 @@ Exhibition.Vertical = new Class({
 		positions.each(function(p,k) {
 			var e = this.elements[k];
 			var y = e.getPosition().y;
-			var fx = e.get("tween", this.tween);
+			var fx = e.get("tween", this.fx);
 			fx.start("top", [y, p.y]);
 		}, this);
 	}
