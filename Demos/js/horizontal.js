@@ -23,23 +23,23 @@ var Horizontal = {
 
 		this.container = $("exhibition");
 		this.preview = $("preview");
-//		this.container.setStyle("height", window.innerHeight);
+
 		this.startSize = {x:0,y:0};
 		this.loadImages = new Array();
 
+		this.control = $("container").getElement("p.control");
 		this.current = $("container").getElement("strong.current");
-		this.max = $("container").getElement("strong.max");
+		this.max	 = $("container").getElement("strong.max");
+		
+		var size = this.control.getSize();
+		this.control.setStyles({"top": "50%", "margin-top": - (size.y/2)});
+
 		this.searchValues = new Hash({
 			'api_key': this.apiKey, 'method': 'flickr.photos.search',
 			'sort': 'date-posted-desc', 'tags': this.tags.join(","),
 			'tag_mode': 'OR', 'per_page': this.perPage, 'format': 'json'
 		});
-/*
-		this.detailValues = new Hash({
-			'api_key': this.apiKey, 'method': 'flickr.photos.getInfo',
-			'photo_id': "", 'format': 'json'
-		});
-*/
+
 		this.flickr = new Request.JSONP({
 			'url': this.flickAPIURL, 'callbackKey': 'jsoncallback',
 			'onRequest': this.onRequest.bind(this),
@@ -49,12 +49,13 @@ var Horizontal = {
 	},
 
 	onRequest: function() {
-	//	this.information = new Element("p", {"class": "loading"});
-	//	this.information.inject($("container"));
-	//	this.information.set("html", "now loading...");
+		this.information = new Element("p", {"class": "loading"});
+		this.information.inject(this.control, "top");
+		this.information.set("html", "Now Loading...");
 	},
 
 	onSuccess: function(response) {
+
 		this.response = response;
 		if (response.stat == 'ok') {
 			var photos = response.photos.photo;
@@ -67,24 +68,19 @@ var Horizontal = {
 			});
 
 			this.loadImages = new Asset.images(preloadImages, {
-				onProgress: this.onLoad.bind(this),
+				onProgress: this.onProgress.bind(this),
 				onComplete: this.onPreload.bind(this)
 			});
 		}
 	},
 
-	onLoad: function(counter,index) {
+	onProgress: function(counter,index) {
 		var photos = this.response.photos.photo;
 		var photo = photos[index];
 
 		var src = "http://farm" + photo.farm + ".static.flickr.com/";
 		src += photo.server + "/" + photo.id + "_" + photo.secret + "_b.jpg";
 
-/*
-		var owner = photo.owner;
-		var id = photo.id;
-		var url = "http://www.flickr.com/photos/" + owner + "/" + id;
-*/
 		var a  = new Element("a", {"href": src, "title": photo.title});
 		var li = new Element("li");
 		this.loadImages[index].inject(a);
@@ -93,24 +89,23 @@ var Horizontal = {
 
 		var size = li.getSize();
 		var styleProps = {
-			"top": "50%",
-			"left": "50%",
-			"margin-top": -(size.y/2),
-			"margin-left": -(size.x/2)
+			"top": "50%", "left": "50%",
+			"margin-top": -(size.y/2), "margin-left": -(size.x/2)
 		};
-
 		li.setStyles(styleProps);
 		li.fade("out");
 		this.current.set("html", counter + 1);
-		this.max.set("html", index + 1);
+		this.max.set("html", this.perPage);
 	},
 
 	onPreload: function() {
+		this.information.dispose();
+		this.control.setStyles({"top": 30, "margin-top": "auto"});
+
 		var elements = this.container.getElements("li");
 		elements.each(function(element,k){
 			element.setStyles({"top": 0, "left": 0, "margin-top": 0, "margin-left": 0});
 		});
-
 
 		this.exhibition = new Exhibition.Horizontal(
 			this.container, elements, {
@@ -135,7 +130,15 @@ var Horizontal = {
 		$("prev").addEvent("click", this.onPrevClick.bind(this));
 		$("next").addEvent("click", this.onNextClick.bind(this));
 
-		new Tips.Pointy(this.container.getElements("li a"), {pointyTipOptions: { point: 6, width: 200 }});
+
+		new Tips.Pointy(this.container.getElements("li a"), {
+			title: function(element) {
+				var title = element.getProperty("title");
+				return title.substr(0, 25) + "...";
+			},
+			text: "", //title only
+			pointyTipOptions: { point: 6, width: 200}
+		});
 	},
 
 	onNextClick: function() { this.exhibition.next(); },

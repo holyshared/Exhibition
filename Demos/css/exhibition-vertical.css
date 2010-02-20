@@ -33,9 +33,9 @@ ul#exhibition li.active a {
 p.control {
 	text-align: left;
 	position: absolute;
-	margin-top: -100px;
+	margin-top: -70px;
 	top: 50%;
-	height: 200px;
+	height: 140px;
 	left: 400px;
 	text-transform: uppercase;
 }
@@ -101,3 +101,14 @@ div.container {
 div.container a {
 	color: #b7dfe7;
 }
+
+p.loading {
+	color: #ffffff;
+	top: -50px;
+	left: 50%;
+	margin-left: -70px;
+	text-align: center;
+	position: absolute;
+	background: url(../images/vertical/bgi_tip.gif) no-repeat center bottom;
+	padding: 5px 20px 15px 20px; 
+} 

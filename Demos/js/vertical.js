@@ -19,6 +19,7 @@ var Vertical = {
 		this.container = $("exhibition");
 		this.preview = $("preview");
 		this.container.setStyle("height", window.innerHeight);
+		this.preview.setStyle("display", "none");
 		this.startSize = {x:0,y:0};
 		this.loadImages = new Array();
 
@@ -53,19 +54,22 @@ var Vertical = {
 			});
 
 			this.loadImages = new Asset.images(preloadImages, {
-				onProgress: this.onLoad.bind(this),
+				onProgress: this.onProgress.bind(this),
 				onComplete: this.onPreload.bind(this)
 			});
 		}
 	},
 
-	onLoad: function(counter,index) {
+	onProgress: function(counter,index) {
 		var photos = this.response.photos.photo;
 		var photo = photos[index];
 		var a  = new Element("a", {"href": "#" + photo.id, "title": photo.title});
 		var li = new Element("li");
 		this.loadImages[index].inject(a);
 		a.inject(li);
+
+		var styleProps = {"top": "50%", "margin-top": -(li.getSize().y/2)};
+		li.setStyles(styleProps);
 		li.inject(this.container);
 	},
 
@@ -78,26 +82,30 @@ var Vertical = {
 		$("prev").addEvent("click", this.onPrevClick.bind(this));
 		$("next").addEvent("click", this.onNextClick.bind(this));
 
-		new Tips.Pointy(this.container.getElements("li a"), {pointyTipOptions: { point: 12, width: 150 }});
+		new Tips.Pointy(this.container.getElements("li a"), {
+			title: function(element) {
+				var title = element.getProperty("title");
+				return title.substr(0, 18) + "...";
+			},
+			text: "", //title only		
+			pointyTipOptions: {point: 12, width: 150 }
+		});
 	},
 	
-	onNextClick: function() {
-		this.exhibition.next();
-	},
+	onNextClick: function() { this.exhibition.next(); },
+	onPrevClick: function() { this.exhibition.prev(); },
 
-	onPrevClick: function() {
-		this.exhibition.prev();
-	},
-	
 	onActive: function(index, element) {
 		var photoId = element.getProperty("href").replace("#", "");
 		if (!this.cache[photoId]) {
 			this.detailValues.set("photo_id", photoId);
-			
+
 			this.flickr = new Request.JSONP({
 				'url': this.flickAPIURL, 'callbackKey': 'jsoncallback',
 				'onRequest': function() {
-					this.preview.set("html", "Now Loading.....");
+					this.information = new Element("p", {"class": "loading"});
+					this.information.inject(this.preview, "top");
+					this.information.set("html", "Now Loading...");
 				}.bind(this),
 				'onSuccess': this.onPhotoInfoSuccess.bind(this)
 			});
@@ -109,7 +117,6 @@ var Vertical = {
 
 	onPhotoInfoSuccess: function(response) {
 		var photo = response.photo;
-
 		var photoTags = photo.tags.tag, tags = [];
 		photoTags.each(function(h,k) {
 			tags.push({
@@ -141,9 +148,11 @@ var Vertical = {
 
 		var loadImage = new Asset.image(src, {
 			"onload": function(props) {
+				this.preview.setStyle("display", "");
+				this.information.dispose();
+
 				var attr = loadImage.getProperty("src"), urls = [], tags = [];
 				props.urls.each(function(url) {
-//					urls.push(new Element("a", {"href": url, "html": url}));
 					urls.push(new Element("a", {"href": url, "html": "Go to flickr page"}));
 				});
 

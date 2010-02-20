@@ -69,7 +69,11 @@ Exhibition.Vertical = new Class({
 		var positions = this.calculation();
 		positions.each(function(p,k){
 			var e = this.elements[k];
-			e.setStyles({"left": p.x, "top": p.y});
+			var styles = {
+				"margin-top": 0, "margin-left": 0,
+				"top": p.y, "left": p.x
+			};
+			e.setStyles(styles);
 		}, this);
 		this.elements.removeClass("active");
 		this.elements[this.index].addClass("active");

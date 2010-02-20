@@ -75,9 +75,6 @@ var Exhibition = new Class({
 		this.preload();
 	},
 
-	setSize: function() {
-	},
-
 	setDefalutPositions: function() {
 		var positions = this.calculation();
 		positions.each(function(p,k){
@@ -141,7 +138,7 @@ var Exhibition = new Class({
 			for (var row = 0; rl = this.matrix.length, row < rl; row++) {
 				if (this.matrix[row][col]) {
 					rows.push(this.matrix[row][col]);
-					var index = row * 5 + col;
+					var index = row * this.options.columns + col;
 					var p = this.positions[index];
 					this.positions[index].x = p.x + width;
 				}
