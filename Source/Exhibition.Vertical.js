@@ -1,6 +1,6 @@
 /*
 ---
-description:
+description: The image lines up beautifully and is displayed.
 
 license: MIT-style
 

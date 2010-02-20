@@ -1,6 +1,6 @@
 /*
 ---
-description:
+description: The image lines up beautifully and is displayed.
 
 license: MIT-style
 
@@ -74,6 +74,10 @@ var Exhibition = new Class({
 		this.setDefalutPositions();
 		this.preload();
 	},
+
+	//This method does override with horizontal and vertical.
+	//TODO: It optimizes it.
+	setSize: function() {},
 
 	setDefalutPositions: function() {
 		var positions = this.calculation();
