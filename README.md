@@ -51,8 +51,8 @@ The mark putting of HTML becomes as follows.
 		</ul>
 	</div>
 
-	The description of CSS becomes as follows.
-	It becomes full screen specifying 100% in height for body and the html element.
+The description of CSS becomes as follows.
+It becomes full screen specifying 100% in height for body and the html element.
 	#CSS
 	div#container {
 		overflow: hidden;
@@ -82,8 +82,8 @@ The mark putting of HTML becomes as follows.
 		background: #3c94af;
 	}
 
-	Javascript is described at the end. The height of the screen is acquired and it specifies it for container element (*div#container*,*ul#exhibition*). 
-	It is necessary to note it because it doesn't become full screen if this processing is not done.
+Javascript is described at the end. The height of the screen is acquired and it specifies it for container element (*div#container*,*ul#exhibition*). 
+It is necessary to note it because it doesn't become full screen if this processing is not done.
 
 	#JS
     window.addEvent("domready", function() {
