@@ -23,8 +23,8 @@ provides: [MooTools.More]
 */
 
 MooTools.More = {
-	'version': '1.2.4.2',
-	'build': 'bd5a93c0913cce25917c48cbdacde568e15e02ef'
+	'version': '1.2.4.4',
+	'build': '6f6057dc645fdb7547689183b2311063bd653ddf'
 };
 
 /*
@@ -457,10 +457,6 @@ Element.implement({
 				calc = rel == document.body ? window.getScroll() : rel.getPosition(),
 				top = calc.y, left = calc.x;
 
-		var scrolls = rel.getScrolls();
-		top += scrolls.y;
-		left += scrolls.x;
-
 		var dim = this.getDimensions({computeSize: true, styles:['padding', 'border','margin']});
 		var pos = {},
 				prefY = options.offset.y,
@@ -559,6 +555,353 @@ Element.implement({
 });
 
 })();
+
+/*
+---
+
+script: Element.Shortcuts.js
+
+description: Extends the Element native object to include some shortcut methods.
+
+license: MIT-style license
+
+authors:
+- Aaron Newton
+
+requires:
+- core:1.2.4/Element.Style
+- /MooTools.More
+
+provides: [Element.Shortcuts]
+
+...
+*/
+
+Element.implement({
+
+	isDisplayed: function(){
+		return this.getStyle('display') != 'none';
+	},
+
+	isVisible: function(){
+		var w = this.offsetWidth,
+			h = this.offsetHeight;
+		return (w == 0 && h == 0) ? false : (w > 0 && h > 0) ? true : this.isDisplayed();
+	},
+
+	toggle: function(){
+		return this[this.isDisplayed() ? 'hide' : 'show']();
+	},
+
+	hide: function(){
+		var d;
+		try {
+			//IE fails here if the element is not in the dom
+			d = this.getStyle('display');
+		} catch(e){}
+		return this.store('originalDisplay', d || '').setStyle('display', 'none');
+	},
+
+	show: function(display){
+		display = display || this.retrieve('originalDisplay') || 'block';
+		return this.setStyle('display', (display == 'none') ? 'block' : display);
+	},
+
+	swapClass: function(remove, add){
+		return this.removeClass(remove).addClass(add);
+	}
+
+});
+
+
+/*
+---
+
+script: OverText.js
+
+description: Shows text over an input that disappears when the user clicks into it. The text remains hidden if the user adds a value.
+
+license: MIT-style license
+
+authors:
+- Aaron Newton
+
+requires:
+- core:1.2.4/Options
+- core:1.2.4/Events
+- core:1.2.4/Element.Event
+- /Class.Binds
+- /Class.Occlude
+- /Element.Position
+- /Element.Shortcuts
+
+provides: [OverText]
+
+...
+*/
+
+var OverText = new Class({
+
+	Implements: [Options, Events, Class.Occlude],
+
+	Binds: ['reposition', 'assert', 'focus', 'hide'],
+
+	options: {/*
+		textOverride: null,
+		onFocus: $empty()
+		onTextHide: $empty(textEl, inputEl),
+		onTextShow: $empty(textEl, inputEl), */
+		element: 'label',
+		positionOptions: {
+			position: 'upperLeft',
+			edge: 'upperLeft',
+			offset: {
+				x: 4,
+				y: 2
+			}
+		},
+		poll: false,
+		pollInterval: 250,
+		wrap: false
+	},
+
+	property: 'OverText',
+
+	initialize: function(element, options){
+		this.element = document.id(element);
+		if (this.occlude()) return this.occluded;
+		this.setOptions(options);
+		this.attach(this.element);
+		OverText.instances.push(this);
+		if (this.options.poll) this.poll();
+		return this;
+	},
+
+	toElement: function(){
+		return this.element;
+	},
+
+	attach: function(){
+		var val = this.options.textOverride || this.element.get('alt') || this.element.get('title');
+		if (!val) return;
+		this.text = new Element(this.options.element, {
+			'class': 'overTxtLabel',
+			styles: {
+				lineHeight: 'normal',
+				position: 'absolute',
+				cursor: 'text'
+			},
+			html: val,
+			events: {
+				click: this.hide.pass(this.options.element == 'label', this)
+			}
+		}).inject(this.element, 'after');
+		if (this.options.element == 'label') {
+			if (!this.element.get('id')) this.element.set('id', 'input_' + new Date().getTime());
+			this.text.set('for', this.element.get('id'));
+		}
+
+		if (this.options.wrap) {
+			this.textHolder = new Element('div', {
+				styles: {
+					lineHeight: 'normal',
+					position: 'relative'
+				},
+				'class':'overTxtWrapper'
+			}).adopt(this.text).inject(this.element, 'before');
+		}
+
+		this.element.addEvents({
+			focus: this.focus,
+			blur: this.assert,
+			change: this.assert
+		}).store('OverTextDiv', this.text);
+		window.addEvent('resize', this.reposition.bind(this));
+		this.assert(true);
+		this.reposition();
+	},
+
+	wrap: function(){
+		if (this.options.element == 'label') {
+			if (!this.element.get('id')) this.element.set('id', 'input_' + new Date().getTime());
+			this.text.set('for', this.element.get('id'));
+		}
+	},
+
+	startPolling: function(){
+		this.pollingPaused = false;
+		return this.poll();
+	},
+
+	poll: function(stop){
+		//start immediately
+		//pause on focus
+		//resumeon blur
+		if (this.poller && !stop) return this;
+		var test = function(){
+			if (!this.pollingPaused) this.assert(true);
+		}.bind(this);
+		if (stop) $clear(this.poller);
+		else this.poller = test.periodical(this.options.pollInterval, this);
+		return this;
+	},
+
+	stopPolling: function(){
+		this.pollingPaused = true;
+		return this.poll(true);
+	},
+
+	focus: function(){
+		if (this.text && (!this.text.isDisplayed() || this.element.get('disabled'))) return;
+		this.hide();
+	},
+
+	hide: function(suppressFocus, force){
+		if (this.text && (this.text.isDisplayed() && (!this.element.get('disabled') || force))){
+			this.text.hide();
+			this.fireEvent('textHide', [this.text, this.element]);
+			this.pollingPaused = true;
+			if (!suppressFocus){
+				try {
+					this.element.fireEvent('focus');
+					this.element.focus();
+				} catch(e){} //IE barfs if you call focus on hidden elements
+			}
+		}
+		return this;
+	},
+
+	show: function(){
+		if (this.text && !this.text.isDisplayed()){
+			this.text.show();
+			this.reposition();
+			this.fireEvent('textShow', [this.text, this.element]);
+			this.pollingPaused = false;
+		}
+		return this;
+	},
+
+	assert: function(suppressFocus){
+		this[this.test() ? 'show' : 'hide'](suppressFocus);
+	},
+
+	test: function(){
+		var v = this.element.get('value');
+		return !v;
+	},
+
+	reposition: function(){
+		this.assert(true);
+		if (!this.element.isVisible()) return this.stopPolling().hide();
+		if (this.text && this.test()) this.text.position($merge(this.options.positionOptions, {relativeTo: this.element}));
+		return this;
+	}
+
+});
+
+OverText.instances = [];
+
+$extend(OverText, {
+
+	each: function(fn) {
+		return OverText.instances.map(function(ot, i){
+			if (ot.element && ot.text) return fn.apply(OverText, [ot, i]);
+			return null; //the input or the text was destroyed
+		});
+	},
+	
+	update: function(){
+
+		return OverText.each(function(ot){
+			return ot.reposition();
+		});
+
+	},
+
+	hideAll: function(){
+
+		return OverText.each(function(ot){
+			return ot.hide(true, true);
+		});
+
+	},
+
+	showAll: function(){
+		return OverText.each(function(ot) {
+			return ot.show();
+		});
+	}
+
+});
+
+if (window.Fx && Fx.Reveal) {
+	Fx.Reveal.implement({
+		hideInputs: Browser.Engine.trident ? 'select, input, textarea, object, embed, .overTxtLabel' : false
+	});
+}
+
+/*
+---
+
+script: Fx.Elements.js
+
+description: Effect to change any number of CSS properties of any number of Elements.
+
+license: MIT-style license
+
+authors:
+- Valerio Proietti
+
+requires:
+- core:1.2.4/Fx.CSS
+- /MooTools.More
+
+provides: [Fx.Elements]
+
+...
+*/
+
+Fx.Elements = new Class({
+
+	Extends: Fx.CSS,
+
+	initialize: function(elements, options){
+		this.elements = this.subject = $$(elements);
+		this.parent(options);
+	},
+
+	compute: function(from, to, delta){
+		var now = {};
+		for (var i in from){
+			var iFrom = from[i], iTo = to[i], iNow = now[i] = {};
+			for (var p in iFrom) iNow[p] = this.parent(iFrom[p], iTo[p], delta);
+		}
+		return now;
+	},
+
+	set: function(now){
+		for (var i in now){
+			var iNow = now[i];
+			for (var p in iNow) this.render(this.elements[i], p, iNow[p], this.options.unit);
+		}
+		return this;
+	},
+
+	start: function(obj){
+		if (!this.check(obj)) return this;
+		var from = {}, to = {};
+		for (var i in obj){
+			var iProps = obj[i], iFrom = from[i] = {}, iTo = to[i] = {};
+			for (var p in iProps){
+				var parsed = this.prepare(this.elements[i], p, iProps[p]);
+				iFrom[p] = parsed.from;
+				iTo[p] = parsed.to;
+			}
+		}
+		return this.parent(from, to);
+	}
+
+});
 
 /*
 ---
@@ -681,15 +1024,15 @@ Request.JSONP = new Class({
 		if (src.length > 2083) this.log('JSONP '+ src +' will fail in Internet Explorer, which enforces a 2083 bytes length limit on URIs');
 
 		var script = new Element('script', {type: 'text/javascript', src: src});
-		Request.JSONP.request_map['request_' + index] = function(data){ this.success(data, script); }.bind(this);
+		Request.JSONP.request_map['request_' + index] = function(){ this.success(arguments, script); }.bind(this);
 		return script.inject(this.options.injectScript);
 	},
 
-	success: function(data, script){
+	success: function(args, script){
 		if (script) script.destroy();
 		this.running = false;
-		this.log('JSONP successfully retrieved: ', data);
-		this.fireEvent('complete', [data]).fireEvent('success', [data]).callChain();
+		this.log('JSONP successfully retrieved: ', args);
+		this.fireEvent('complete', args).fireEvent('success', args).callChain();
 	}
 
 });
@@ -726,7 +1069,9 @@ var Asset = {
 			document: document,
 			check: $lambda(true)
 		}, properties);
-
+		
+		if (properties.onLoad) properties.onload = properties.onLoad;
+		
 		var script = new Element('script', {src: source, type: 'text/javascript'});
 
 		var load = properties.onload.bind(script), 
@@ -771,6 +1116,8 @@ var Asset = {
 		var element = document.id(image) || new Element('img');
 		['load', 'abort', 'error'].each(function(name){
 			var type = 'on' + name;
+			var cap = name.capitalize();
+			if (properties['on' + cap]) properties[type] = properties['on' + cap];
 			var event = properties[type];
 			delete properties[type];
 			image[type] = function(){
@@ -894,7 +1241,7 @@ var IframeShim = new Class({
 				this[this.options.display ? 'show' : 'hide']();
 				this.fireEvent('inject');
 			}).bind(this);
-			if (IframeShim.ready) window.addEvent('load', inject);
+			if (!IframeShim.ready) window.addEvent('load', inject);
 			else inject();
 		} else {
 			this.position = this.hide = this.show = this.dispose = $lambda(this);
@@ -974,7 +1321,7 @@ var Mask = new Class({
 
 	Implements: [Options, Events],
 
-	Binds: ['resize'],
+	Binds: ['position'],
 
 	options: {
 		// onShow: $empty,
@@ -991,12 +1338,13 @@ var Mask = new Class({
 		style: {},
 		'class': 'mask',
 		maskMargins: false,
-		useIframeShim: true
+		useIframeShim: true,
+		iframeShimOptions: {}
 	},
 
 	initialize: function(target, options){
-		this.target = document.id(target) || document.body;
-		this.target.store('mask', this);
+		this.target = document.id(target) || document.id(document.body);
+		this.target.store('Mask', this);
 		this.setOptions(options);
 		this.render();
 		this.inject();
@@ -1028,7 +1376,7 @@ var Mask = new Class({
 		target = target || this.options.inject ? this.options.inject.target : '' || this.target;
 		this.element.inject(target, where);
 		if (this.options.useIframeShim) {
-			this.shim = new IframeShim(this.element);
+			this.shim = new IframeShim(this.element, this.options.iframeShimOptions);
 			this.addEvents({
 				show: this.shim.show.bind(this.shim),
 				hide: this.shim.hide.bind(this.shim),
@@ -1068,8 +1416,7 @@ var Mask = new Class({
 
 	show: function(){
 		if (!this.hidden) return this;
-		this.target.addEvent('resize', this.resize);
-		if (this.target != document.body) document.id(document.body).addEvent('resize', this.resize);
+		window.addEvent('resize', this.position);
 		this.position();
 		this.showMask.apply(this, arguments);
 		return this;
@@ -1083,7 +1430,7 @@ var Mask = new Class({
 
 	hide: function(){
 		if (this.hidden) return this;
-		this.target.removeEvent('resize', this.resize);
+		window.removeEvent('resize', this.position);
 		this.hideMask.apply(this, arguments);
 		if (this.options.destroyOnHide) return this.destroy();
 		return this;
@@ -1195,21 +1542,20 @@ this.Tips = new Class({
 		hideDelay: 100,
 		className: 'tip-wrap',
 		offset: {x: 16, y: 16},
+		windowPadding: {x:0, y:0},
 		fixed: false
 	},
 
 	initialize: function(){
 		var params = Array.link(arguments, {options: Object.type, elements: $defined});
 		this.setOptions(params.options);
-		document.id(this);
-		
 		if (params.elements) this.attach(params.elements);
+		this.container = new Element('div', {'class': 'tip'});
 	},
 
 	toElement: function(){
 		if (this.tip) return this.tip;
-		
-		this.container = new Element('div', {'class': 'tip'});
+
 		return this.tip = new Element('div', {
 			'class': this.options.className,
 			styles: {
@@ -1273,8 +1619,10 @@ this.Tips = new Class({
 		}, this);
 		
 		$clear(this.timer);
-		this.timer = this.show.delay(this.options.showDelay, this, element);
-		this.position((this.options.fixed) ? {page: element.getPosition()} : event);
+		this.timer = (function(){
+			this.show(this, element);
+			this.position((this.options.fixed) ? {page: element.getPosition()} : event);
+		}).delay(this.options.showDelay, this);
 	},
 
 	elementLeave: function(event, element){
@@ -1284,11 +1632,10 @@ this.Tips = new Class({
 	},
 
 	fireForParent: function(event, element){
-		if (!element) return;
-		parentNode = element.getParent();
-		if (parentNode == document.body) return;
-		if (parentNode.retrieve('tip:enter')) parentNode.fireEvent('mouseenter', event);
-		else this.fireForParent(parentNode, event);
+		element = element.getParent();
+		if (!element || element == document.body) return;
+		if (element.retrieve('tip:enter')) element.fireEvent('mouseenter', event);
+		else this.fireForParent(event, element);
 	},
 
 	elementMove: function(event, element){
@@ -1296,6 +1643,8 @@ this.Tips = new Class({
 	},
 
 	position: function(event){
+		if (!this.tip) document.id(this);
+
 		var size = window.getSize(), scroll = window.getScroll(),
 			tip = {x: this.tip.offsetWidth, y: this.tip.offsetHeight},
 			props = {x: 'left', y: 'top'},
@@ -1303,7 +1652,7 @@ this.Tips = new Class({
 		
 		for (var z in props){
 			obj[props[z]] = event.page[z] + this.options.offset[z];
-			if ((obj[props[z]] + tip[z] - scroll[z]) > size[z]) obj[props[z]] = event.page[z] - this.options.offset[z] - tip[z];
+			if ((obj[props[z]] + tip[z] - scroll[z]) > size[z] - this.options.windowPadding[z]) obj[props[z]] = event.page[z] - this.options.offset[z] - tip[z];
 		}
 		
 		this.tip.setStyles(obj);
@@ -1315,10 +1664,12 @@ this.Tips = new Class({
 	},
 
 	show: function(element){
+		if (!this.tip) document.id(this);
 		this.fireEvent('show', [this.tip, element]);
 	},
 
 	hide: function(element){
+		if (!this.tip) document.id(this);
 		this.fireEvent('hide', [this.tip, element]);
 	}
 

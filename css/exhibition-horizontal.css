@@ -27,6 +27,7 @@ ul#exhibition li.active a {
 }
 
 
+
 /* Controller
 ----------------------------------*/
 p.control {
@@ -52,6 +53,10 @@ p.control strong.current {
 p.control span.status {
 	padding-top: 14px;
 	display: inline-block;
+	width: 80px;
+	height: 46px;
+	float: left;
+	margin-left: 13px;
 }
 
 p.control a {

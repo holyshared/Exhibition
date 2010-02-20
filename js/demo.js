@@ -1,13 +1,13 @@
 window.addEvent("domready", function() {
 
-	$("container").setStyle("height", window.innerHeight);
+	var height = (Browser.Engine.trident && Browser.Engine.version <= 6) ? document.documentElement.clientHeight : window.innerHeight;
+	var container = $("container");
+	var exhibition = $("exhibition");
 
-	var exhibitions = $$("ul.exhibition");
-	exhibitions.each(function(element, key) {
-		var container = element;
-		var images = element.getElements("li");
-		new Exhibition.Horizontal(container, images, {"defaultIndex": Math.round(images.length/2)});
-	});
+	container.setStyle("height", height);
+	exhibition.setStyle("height", height);
 	
+	var images = exhibition.getElements("li");
+	new Exhibition(exhibition, images, {"defaultIndex": 12});
 
 });

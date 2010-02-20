@@ -61,7 +61,7 @@ ul#gnavi {
 
 ul#gnavi li {
 	font-size: 1.0em;
-	margin-bottom: 10px;
+	margin-bottom: 25px;
 	text-transform: uppercase;
 }
 
@@ -78,6 +78,31 @@ ul#gnavi li a.active {
 	font-weight: bold;
 	color: #3c94af;
 }
+
+ul#gnavi li h2,
+ul#gnavi li ul,
+ul#gnavi li ul li {
+	font-size: 100%;
+}
+
+ul#gnavi li ul {
+	list-style: none; 
+}
+
+ul#gnavi li ul li {
+	margin-bottom: 10px;
+}
+
+ul#gnavi li h2 {
+	font-size: 100%;
+	border-bottom: 1px solid #cccccc;
+	margin-bottom: 10px;
+	color: white;
+	padding-bottom: 5px;
+}
+
+
+
 
 
 dl#properties dt {
@@ -149,4 +174,60 @@ p#copyright {
 	padding-right: 15px;
 	float: right;
 	text-align: right;
+}
+
+
+
+div#container.howto {
+	margin-left: 250px;
+	padding-top: 50px;
+}
+
+div#container.howto h2 {
+	font-size: 1.8em;
+	text-transform: uppercase;
+	margin-bottom: 10px;
+}
+
+div#container.howto h3 {
+	font-size: 1.6em;
+	margin-bottom: 10px;
+}
+
+div.section {
+	margin-bottom: 25px;
+}
+
+
+
+
+div.css, div.html, div.script {
+	position: absolute;
+}
+
+ul#tabs {
+	margin-left: 0;
+	margin-bottom: 15px;
+}
+
+ul#tabs li {
+	background-color: transparent;
+	display: inline;
+	float: none;
+	list-style: none;
+}
+
+ul#tabs li a {
+	background-color: #edd;
+	color: #333;
+	display: inline;
+	height: auto;
+	padding: 5px 20px;
+	text-decoration: none;
+	width: auto;
+}
+
+ul#tabs li a.active {
+	background-color: #ddd;
+	color: #000;
 }

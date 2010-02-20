@@ -1,0 +1,180 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+	<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+		<title>Exhibition.js - How to use - Horizontal</title>
+
+	<meta name="keywords" content="mootools,example,javascript,framework,programing,thumbnail,exhibition" />
+	<meta name="description" content="Exhibition" />
+	<meta name="author" content="Noritaka Horio" />
+	<meta name="copyright" content="2010 Noritaka Horio All rights reserved" />
+	<link rel="stylesheet" type="text/css" href="../css/style.css" media="screen,print" />
+	<script type="text/javascript" src="../js/libraries/mootools-1.2.4-core.js"></script>
+	<script type="text/javascript" src="../js/libraries/mootools-1.2.4.4-more.js"></script>
+	<script type="text/javascript" src="../js/libraries/clientcide.js"></script>
+
+		<link type="text/css" rel="stylesheet" href="../css/highlighter/shCore.css" />
+		<link type="text/css" rel="stylesheet" href="../css/highlighter/shThemeEclipse.css" />
+		<script type="text/javascript" src="../js/libraries/highlighter/shCore.js"></script>
+		<script type="text/javascript" src="../js/libraries/highlighter/shBrushJScript.js"></script>
+		<script type="text/javascript" src="../js/libraries/highlighter/shBrushCss.js"></script>
+		<script type="text/javascript" src="../js/libraries/highlighter/shBrushXml.js"></script>
+		<script type="text/javascript" src="../js/libraries/rotater.js"></script>
+		<script type="text/javascript" src="../js/libraries/tabs.js"></script>
+		<script type="text/javascript" src="../js/common.js"></script>
+
+</head>
+	<body>
+		<div id="warpper">
+			<div id="sidebar">
+				<h1><img title="Exhibition.js" src="../images/exhibitionjs.png" alt="Exhibition.js" /></h1>
+				<ul id="gnavi">
+					<li>
+                    	    
+                    	<a title="Home" href="../index.html">home</a>    
+                    </li>
+					<li>
+						<h2>How to use</h2>
+						<ul>
+							<li>
+								
+                                <a title="Basic" href="basic.html">basic</a>    
+                            </li>
+							<li>
+								<a title="Horizontal" class="active" href="horizontal.html">horizontal</a>
+                                    
+							</li>
+							<li>
+								    
+                                <a title="Vertical" href="vertical.html">vertical</a>    
+							</li>
+    					</ul>
+					</li>
+					<li>
+						<h2>Demonstration</h2>
+						<ul>
+							<li>
+								    
+                                <a title="Horizontal" href="../demos/horizontal.html">horizontal</a>    
+                            </li>
+							<li>
+								
+                                <a title="Vertical" href="../demos/vertical.html">vertical</a>
+                            </li>
+						</ul>
+					</li>
+				</ul>
+				<dl id="properties">
+					<dt>download</dt>
+					<dd><a href="#">1.0 download</a></dd>
+					<dt>github</dt>
+					<dd><a title="github" href="http://github.com/holyshared/Exhibition">github@Exhibition</a></dd>
+				</dl>
+			</div>
+
+            <div id="main">
+
+<div id="container" class="howto">
+<h2>How to use</h2>
+<p><em>Exhibition.Horizontal.js</em> use becomes as follows.</p>
+
+<ul id="tabs">
+	<li><a class="tab" href="#">HTML</a></li>
+	<li><a class="tab" href="#">CSS</a></li>
+	<li><a class="tab" href="#">Javascript</a></li>
+</ul>
+
+<div id="useSection">
+
+<div class="html section">
+<h3>HTML</h3>
+<p>The mark putting of HTML becomes as follows.</p>
+<pre class="brush: xml">
+    &lt;div id="container"&gt;
+        &lt;ul id="exhibition"&gt;
+            &lt;li&gt;&lt;a href="#"&gt;&lt;img src="../Demos/images/home/img_tn1.jpg" width="152" height="228" /&gt;&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="#"&gt;&lt;img src="../Demos/images/home/img_tn2.jpg" width="218" height="147" /&gt;&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="#"&gt;&lt;img src="../Demos/images/home/img_tn3.jpg" width="154" height="191" /&gt;&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="#"&gt;&lt;img src="../Demos/images/home/img_tn4.jpg" width="167" height="233" /&gt;&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="#"&gt;&lt;img src="../Demos/images/home/img_tn5.jpg" width="301" height="187" /&gt;&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="#"&gt;&lt;img src="../Demos/images/home/img_tn6.jpg" width="167" height="221" /&gt;&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="#"&gt;&lt;img src="../Demos/images/home/img_tn7.jpg" width="251" height="167" /&gt;&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="#"&gt;&lt;img src="../Demos/images/home/img_tn8.jpg" width="182" height="213" /&gt;&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="#"&gt;&lt;img src="../Demos/images/home/img_tn9.jpg" width="249" height="178" /&gt;&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="#"&gt;&lt;img src="../Demos/images/home/img_tn10.jpg" width="159" height="238" /&gt;&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="#"&gt;&lt;img src="../Demos/images/home/img_tn1.jpg" width="152" height="228" /&gt;&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="#"&gt;&lt;img src="../Demos/images/home/img_tn2.jpg" width="218" height="147" /&gt;&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="#"&gt;&lt;img src="../Demos/images/home/img_tn3.jpg" width="154" height="191" /&gt;&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="#"&gt;&lt;img src="../Demos/images/home/img_tn4.jpg" width="167" height="233" /&gt;&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="#"&gt;&lt;img src="../Demos/images/home/img_tn5.jpg" width="301" height="187" /&gt;&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/div&gt;
+</pre>
+</div>
+
+
+<div class="css section">
+<h3>CSS</h3>
+<p>The description of CSS becomes as follows.</p>
+<pre class="brush: css">
+/* Exhibition
+----------------------------------*/
+ul#exhibition {
+	overflow: hidden;
+	list-style: none;
+	position: relative;
+}
+
+ul#exhibition li {
+	position: absolute;
+}
+
+ul#exhibition li a {
+	display: block;
+	padding: 10px;
+	background: #333333;
+}
+
+ul#exhibition li a:hover {
+	background: #3c94af;
+}
+
+ul#exhibition li.active a {
+	background: #3c94af;
+}
+</pre>
+</div>
+
+<div class="script section">
+<h3>Javascript</h3>
+<p>Javascript is described at the end.</p>
+<pre class="brush: javascript">
+window.addEvent("domready", function() {
+	var container = $("container");
+	var exhibition = $("exhibition");
+
+	var images = exhibition.getElements("li");
+	new Exhibition.Horizontal(container, images, {});
+});
+</pre>
+</div>
+</div>
+</div>
+
+            </div>
+
+            <div id="footer">
+	            <div id="developer">
+					<p class="avatar"><a title="Noritaka Horio"  href="http://www.sharedhat.com/"><img src="http://www.gravatar.com/avatar/75c365184edfa72ae30d56199ca56450?s=60" alt="Noritaka Horio" /></a></p>
+					<ul>
+						<li><strong>author:</strong><a href="http://www.sharedhat.com/">Noritaka Horio</a></li>
+						<li><strong>blog:</strong><a title="sharedhat.com" href="http://www.sharedhat.com/">http://www.sharedhat.com/</a></li>
+						<li><strong>email</strong><a title="Noritaka Horio" href="mailto:holy.shared.design@gmail.com">holy.shared.design@gmail.com</a></li>
+					</ul>
+	            </div>
+				<p id="copyright">copyright &copy; 2010 <a href="http://www.sharedhat.com/">Noritaka Horio</a> All rigths reserved.</p>
+            </div>
+        </div>
+	</body>
+</html>
