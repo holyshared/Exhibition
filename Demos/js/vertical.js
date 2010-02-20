@@ -16,10 +16,13 @@ var Vertical = {
 	cache: [],
 
 	initialize: function() {
+		var height = (Browser.Engine.trident && Browser.Engine.version <= 6) ? document.documentElement.clientHeight : window.innerHeight;
+
+		$("container").setStyle("height", height);
+		$("exhibition").setStyle("height", height);
+
 		this.container = $("exhibition");
 		this.preview = $("preview");
-		this.container.setStyle("height", window.innerHeight);
-		this.preview.setStyle("display", "none");
 		this.startSize = {x:0,y:0};
 		this.loadImages = new Array();
 

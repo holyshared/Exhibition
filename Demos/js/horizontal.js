@@ -19,7 +19,8 @@ var Horizontal = {
 
 	initialize: function() {
 
-		$("container").setStyle("height", window.innerHeight);
+		var height = (Browser.Engine.trident && Browser.Engine.version <= 6) ? document.documentElement.clientHeight : window.innerHeight;
+		$("container").setStyle("height", height);
 
 		this.container = $("exhibition");
 		this.preview = $("preview");
