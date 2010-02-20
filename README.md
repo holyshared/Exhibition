@@ -53,6 +53,7 @@ The mark putting of HTML becomes as follows.
 
 The description of CSS becomes as follows.
 It becomes full screen specifying 100% in height for body and the html element.
+
 	#CSS
 	div#container {
 		overflow: hidden;
