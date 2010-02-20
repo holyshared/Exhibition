@@ -134,7 +134,7 @@ var Horizontal = {
 		new Tips.Pointy(this.container.getElements("li a"), {
 			title: function(element) {
 				var title = element.getProperty("title");
-				return title.substr(0, 25) + "...";
+				return (title) ? title.substr(0, 25) + "..." : "no title...";
 			},
 			text: "", //title only
 			pointyTipOptions: { point: 6, width: 200}

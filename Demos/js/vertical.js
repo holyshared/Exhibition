@@ -85,7 +85,7 @@ var Vertical = {
 		new Tips.Pointy(this.container.getElements("li a"), {
 			title: function(element) {
 				var title = element.getProperty("title");
-				return title.substr(0, 18) + "...";
+				return (title) ? title.substr(0, 18) + "..." : "no title...";
 			},
 			text: "", //title only		
 			pointyTipOptions: {point: 12, width: 150 }
