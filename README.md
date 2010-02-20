@@ -109,8 +109,8 @@ All options have default values assigned, hence are optional.
 ### Version 1.0
 
 * **defaultIndex**: (int) Index initial value of image
-* **duration**: (int) Transition of animation. ex: expo:in:out, sine:in
-* **transition**: (string) 
+* **duration**: (int) duration of animation.
+* **transition**: (string) Transition of animation. ex: expo:in:out, sine:in
 * **blank**: (int) Interval between image and image.
 * **onPreload**: When reading all images is completed, it is generated.
 * **onNext**: It is generated before it changes into the following image.
