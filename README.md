@@ -1,6 +1,8 @@
 Exhibition
 ===========
 
+This plugin beautifully arranges the image. Moreover, the image is smoothly moved.
+
 ![Screenshot](http://holyshared.github.com/Exhibition/images/screenshot.jpg)
 
 How to use
