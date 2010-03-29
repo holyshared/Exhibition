@@ -25,7 +25,6 @@ var Vertical = {
 		this.preview = $("preview");
 		this.startSize = {x:0,y:0};
 		this.loadImages = new Array();
-		this.preview.setStyle("display", "none");
 
 		this.searchValues = new Hash({
 			'api_key': this.apiKey, 'method': 'flickr.photos.search',
