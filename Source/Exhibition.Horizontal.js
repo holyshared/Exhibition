@@ -50,7 +50,7 @@ Exhibition.Horizontal = new Class({
 		onPreload: $empty
 		onNext: $empty
 		onPrev: $empty
-		onChange: $empty
+		onSelect: $empty
 		onActive: $empty
 */
 	},
@@ -105,12 +105,14 @@ Exhibition.Horizontal = new Class({
 
 	render: function() {
 		var positions = this.calculation();
-		positions.each(function(p,k) {
-			var e = this.elements[k];
-			var x = e.getPosition().x;
-			var fx = e.get("tween", this.fx);
-			fx.start("left", [x, p.x]);
-		}, this);
+		if (this.animate) {
+			positions.each(function(p,k) {
+				var e = this.elements[k];
+				var x = e.getPosition().x;
+				var fx = e.get("tween", this.fx);
+				fx.start("left", [x, p.x]);
+			}, this);
+		}
 	}
 
 });

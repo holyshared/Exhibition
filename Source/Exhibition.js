@@ -51,11 +51,13 @@ var Exhibition = new Class({
 		onPreload: $empty
 		onNext: $empty
 		onPrev: $empty
-		onChange: $empty
+		onSelect: $empty
 		onActive: $empty
 */
 	},
 
+	animate: true,
+	
 	initialize: function (container,sources,options) {
 		this.setOptions(options);
 		this.container = container;
@@ -206,14 +208,25 @@ var Exhibition = new Class({
 
 	render:  function() {
 		var positions = this.calculation();
-		positions.each(function(end,k) {
-			var e = this.elements[k];
-			var start = e.getPosition();
-			var fx = e.get("morph", this.fx);
-			fx.start({"left": [start.x, end.x], "top": [start.y, end.y]});
-		}, this);
+		if (this.animate) {
+			positions.each(function(end,k) {
+				var e = this.elements[k];
+				var start = e.getPosition();
+				var fx = e.get("morph", this.fx);
+				fx.start({"left": [start.x, end.x], "top": [start.y, end.y]});
+			}, this);
+		}
 	},
 
+	stopAnimate: function() {
+		this.animate = false;
+	},
+
+	startAnimate: function() {
+		this.animate = true;
+		this.render();
+	},
+	
 	setEvents: function() {
 		this.elements.each(function(e,k) {
 			var a = $(e).getElement("a");
@@ -240,7 +253,8 @@ var Exhibition = new Class({
 	onComplete: function() {
 		this.counter++;
 		if (this.counter >= this.elements.length) {
-			this.fireEvent("change", [this.index, this.elements[this.index]]);
+			var acitve = this.elements[this.index];
+			this.fireEvent("acitve", [this.index, acitve.getElement("a")]);
 			this.counter = 0;
 		}
 	},
@@ -280,7 +294,7 @@ var Exhibition = new Class({
 		elements.removeClass("active");
 		active.addClass("active");
 		this.render();
-		this.fireEvent("active", [index,active.getElement("a")]);
+		this.fireEvent("select", [index,active.getElement("a")]);
 	}
 
 });
