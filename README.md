@@ -134,4 +134,4 @@ The theme of this wordpress is being developed.
 The one on the way can be confirmed on a site here.
 [Exhibition](http://exhibition.sharedhat.com/)
 
-![Exhibition](http://github.com/holyshared/Exhibition/images/theme.png)
+![Exhibition](http://holyshared.github.com/Exhibition/images/theme.png)
