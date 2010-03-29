@@ -50,7 +50,7 @@ Exhibition.Vertical = new Class({
 		onPreload: $empty
 		onNext: $empty
 		onPrev: $empty
-		onChange: $empty
+		onSelect: $empty
 		onActive: $empty
 */
 	},
@@ -111,12 +111,14 @@ Exhibition.Vertical = new Class({
 
 	render: function() {
 		var positions = this.calculation();
-		positions.each(function(p,k) {
-			var e = this.elements[k];
-			var y = e.getPosition().y;
-			var fx = e.get("tween", this.fx);
-			fx.start("top", [y, p.y]);
-		}, this);
+		if (this.animate) {
+			positions.each(function(p,k) {
+				var e = this.elements[k];
+				var y = e.getPosition().y;
+				var fx = e.get("tween", this.fx);
+				fx.start("top", [y, p.y]);
+			}, this);
+		}
 	}
 
 });
