@@ -254,7 +254,7 @@ var Exhibition = new Class({
 		this.counter++;
 		if (this.counter >= this.elements.length) {
 			var acitve = this.elements[this.index];
-			this.fireEvent("acitve", [this.index, acitve.getElement("a")]);
+			this.fireEvent("active", [this.index, acitve.getElement("a")]);
 			this.counter = 0;
 		}
 	},

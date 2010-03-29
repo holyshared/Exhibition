@@ -106,7 +106,7 @@ Options
 
 All options have default values assigned, hence are optional.
 
-### Version 1.0
+### Version 1.0.1
 
 * **defaultIndex**: (int) Index initial value of image
 * **duration**: (int) duration of animation.
@@ -115,6 +115,7 @@ All options have default values assigned, hence are optional.
 * **onPreload**: When reading all images is completed, it is generated.
 * **onNext**: It is generated before it changes into the following image.
 * **onPrev**: It is generated before it changes into the previous image.
+* **onSelect**: When selected, it is generated.
 * **onActive**: When the image becomes active, it is generated.
 
 
@@ -124,3 +125,15 @@ Screenshots
 ![Exhibition](http://holyshared.github.com/Exhibition/images/exhibition.jpg)
 ![Exhibition.Horizontal](http://holyshared.github.com/Exhibition/images/exhibition-horizontal.jpg)
 ![Exhibition.Vertical](http://holyshared.github.com/Exhibition/images/exhibition-vertical.jpg)
+
+
+Wordpress Theme Exhibition
+-----------
+
+The theme of this wordpress is being developed.
+The one on the way can be confirmed on a site here.
+[http://exhibition.sharedhat.com/]
+
+![Exhibition](http://github.com/holyshared/Exhibition/images/theme.png)
+
+
