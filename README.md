@@ -132,8 +132,6 @@ Wordpress Theme Exhibition
 
 The theme of this wordpress is being developed.
 The one on the way can be confirmed on a site here.
-[http://exhibition.sharedhat.com/]
+[Exhibition](http://exhibition.sharedhat.com/)
 
 ![Exhibition](http://github.com/holyshared/Exhibition/images/theme.png)
-
-
