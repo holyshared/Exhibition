@@ -1,7 +1,15 @@
 name: Exhibition
+
+description: "This plugin beautifully arranges the image. Moreover, the image is smoothly moved."
+
 author: holyshared
+
 category: Interface
+
 tags: [animation, thumnail, gallery]
+
 current: 1.0.1
+
 #docs: http://url.to.docs
+
 demo: http://holyshared.github.com/Exhibition
