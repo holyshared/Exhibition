@@ -1,5 +1,7 @@
 /*
 ---
+name: Exhibition.Horizontal
+
 description: The image lines up beautifully and is displayed.
 
 license: MIT-style
@@ -8,34 +10,14 @@ authors:
 - Noritaka Horio
 
 requires:
-  core/1.2.4:
-  - Core/Core
-  - Core/Browser
-  - Native/Array
-  - Native/Function
-  - Native/Number
-  - Native/String
-  - Native/Hash
-  - Native/Event
-  - Class/Class
-  - Class/Class.Extras
-  - Element/Element
-  - Element/Element.Event
-  - Element/Element.Style
-  - Element/Element.Dimensions
-  - Utilities/Selecter
-  - Utilities/DomReady
-  - Fx/Fx
-  - Fx/Fx.CSS
-  - Fx/Fx.Tween
-  - Fx/Fx.Morph
-  - Fx/Fx.Transitions
-more/1.2.4.2:
-  - Assets
+  - Core/Fx.Tween
+  - Exhibition/Exhibition
 
-provides: [Exhibition,Exhibition.Horizontal,Exhibition.Vertical]
+provides: [Exhibition.Horizontal]
 ...
 */
+
+(function(Exhibition){
 
 Exhibition.Horizontal = new Class({
 
@@ -70,6 +52,7 @@ Exhibition.Horizontal = new Class({
 		positions.each(function(p,k){
 			var e = this.elements[k];
 			e.setStyles({"left": p.x, "top": p.y});
+			e.set("tween", this.fx);
 		}, this);
 		this.elements.removeClass("active");
 		this.elements[this.index].addClass("active");
@@ -109,10 +92,12 @@ Exhibition.Horizontal = new Class({
 			positions.each(function(p,k) {
 				var e = this.elements[k];
 				var x = e.getPosition().x;
-				var fx = e.get("tween", this.fx);
+				var fx = e.get("tween");
 				fx.start("left", [x, p.x]);
 			}, this);
 		}
 	}
 
 });
+
+}(Exhibition));

@@ -1,0 +1,20 @@
+<script type="text/javascript" src="/depender/build?require=Exhibition/Exhibition.Horizontal,Core/$,Core/$$"></script>
+<script type="text/javascript">
+(function($){
+
+	window.addEventListener('load', function(){
+
+		var container = $('container');
+		var elements = $$('#exhibition li');
+		var exh = new Exhibition.Horizontal(container, elements);
+
+	}, false);
+
+}(document.id));
+</script>
+<div id="container">
+	<ul id="exhibition">
+		<li><a href="#"><img src="../Demos/images/home/img_tn1.jpg" width="152" height="228" /></a></li>
+		<li><a href="#"><img src="../Demos/images/home/img_tn2.jpg" width="218" height="147" /></a></li>
+	</ul>
+</div>

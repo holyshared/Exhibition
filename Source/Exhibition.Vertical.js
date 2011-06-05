@@ -1,5 +1,7 @@
 /*
 ---
+name: Exhibition.Vertical
+
 description: The image lines up beautifully and is displayed.
 
 license: MIT-style
@@ -8,34 +10,14 @@ authors:
 - Noritaka Horio
 
 requires:
-  core/1.2.4:
-  - Core/Core
-  - Core/Browser
-  - Native/Array
-  - Native/Function
-  - Native/Number
-  - Native/String
-  - Native/Hash
-  - Native/Event
-  - Class/Class
-  - Class/Class.Extras
-  - Element/Element
-  - Element/Element.Event
-  - Element/Element.Style
-  - Element/Element.Dimensions
-  - Utilities/Selecter
-  - Utilities/DomReady
-  - Fx/Fx
-  - Fx/Fx.CSS
-  - Fx/Fx.Tween
-  - Fx/Fx.Morph
-  - Fx/Fx.Transitions
-more/1.2.4.2:
-  - Assets
+  - Core/Fx.Tween
+  - Exhibition/Exhibition
 
-provides: [Exhibition,Exhibition.Horizontal,Exhibition.Vertical]
+provides: [Exhibition.Vertical]
 ...
 */
+
+(function(Exhibition){
 
 Exhibition.Vertical = new Class({
 
@@ -74,6 +56,7 @@ Exhibition.Vertical = new Class({
 				"top": p.y, "left": p.x
 			};
 			e.setStyles(styles);
+			e.set("tween", this.fx);
 		}, this);
 		this.elements.removeClass("active");
 		this.elements[this.index].addClass("active");
@@ -115,10 +98,12 @@ Exhibition.Vertical = new Class({
 			positions.each(function(p,k) {
 				var e = this.elements[k];
 				var y = e.getPosition().y;
-				var fx = e.get("tween", this.fx);
+				var fx = e.get("tween");
 				fx.start("top", [y, p.y]);
 			}, this);
 		}
 	}
 
 });
+
+}(Exhibition));

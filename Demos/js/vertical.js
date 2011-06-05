@@ -195,13 +195,22 @@ var Vertical = {
 				container.setStyles({"visibility": "hidden", "opacity": 0});
 				
 				var endSize	= container.getSize();
-				var fx = this.preview.get("morph", {
+/*				var fx = this.preview.get("morph", {
 					"transition": "expo:in:out",
 					"onComplete": function() {
 						container.setStyle("visibility", "visible");
 						container.fade(0.8);
 					}
 				});
+*/
+				var fx = new Fx.Morph(this.preview, {
+					"transition": "expo:in:out",
+					"onComplete": function() {
+						container.setStyle("visibility", "visible");
+						container.fade(0.8);
+					}
+				});
+
 				fx.start({
 					"margin-top": [-(this.startSize.y)/2,-endSize.y/2],
 					"height": [this.startSize.y, endSize.y]

@@ -117,7 +117,8 @@ var Horizontal = {
 
 					var duration = 800;
 					for (var i = 0; l = elements.length, i < l; i++) {
-						var fx = elements[i].get("morph", {"duration": duration});
+//						var fx = elements[i].get("morph", {"duration": duration});
+						var fx = new Fx.Morph(elements[i], {"duration": duration});
 						fx.start({"opacity": [0,1]});
 						duration = duration + 50;
 					}

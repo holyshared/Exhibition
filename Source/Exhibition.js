@@ -1,5 +1,7 @@
 /*
 ---
+name: Exhibition
+
 description: The image lines up beautifully and is displayed.
 
 license: MIT-style
@@ -8,37 +10,26 @@ authors:
 - Noritaka Horio
 
 requires:
-  core/1.2.4:
-  - Core/Core
-  - Core/Browser
-  - Native/Array
-  - Native/Function
-  - Native/Number
-  - Native/String
-  - Native/Hash
-  - Native/Event
-  - Class/Class
-  - Class/Class.Extras
-  - Element/Element
-  - Element/Element.Event
-  - Element/Element.Style
-  - Element/Element.Dimensions
-  - Utilities/Selecter
-  - Utilities/DomReady
-  - Fx/Fx
-  - Fx/Fx.CSS
-  - Fx/Fx.Tween
-  - Fx/Fx.Morph
-  - Fx/Fx.Transitions
-more/1.2.4.2:
-  - Assets
+  - Core/Array
+  - Core/Function
+  - Core/Events
+  - Core/Options
+  - Core/Class
+  - Core/Elements
+  - Core/Element.Style
+  - Core/Element.Dimensions
+  - Core/Fx.Morph
+  - More/Assets
 
-provides: [Exhibition,Exhibition.Horizontal,Exhibition.Vertical]
+provides: [Exhibition]
+
 ...
 */
 
-var Exhibition = new Class({
-	
+(function(){
+
+var Exhibition = this.Exhibition = new Class({
+
 	Implements: [Events, Options],
 
 	options: {
@@ -57,7 +48,7 @@ var Exhibition = new Class({
 	},
 
 	animate: true,
-	
+
 	initialize: function (container,sources,options) {
 		this.setOptions(options);
 		this.container = container;
@@ -87,6 +78,7 @@ var Exhibition = new Class({
 			var e = this.elements[k];
 			e.setStyle("left", p.x);
 			e.setStyle("top", p.y);
+			e.set("morph", this.fx);
 		}, this);
 		this.elements.removeClass("active");
 		this.elements[this.index].addClass("active");
@@ -212,7 +204,7 @@ var Exhibition = new Class({
 			positions.each(function(end,k) {
 				var e = this.elements[k];
 				var start = e.getPosition();
-				var fx = e.get("morph", this.fx);
+				var fx = e.get("morph");
 				fx.start({"left": [start.x, end.x], "top": [start.y, end.y]});
 			}, this);
 		}
@@ -298,3 +290,5 @@ var Exhibition = new Class({
 	}
 
 });
+
+}());
