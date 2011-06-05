@@ -1,12 +1,27 @@
 name: Exhibition
 
+exports: "exhibition.js"
+
+web: "[http://sharedhat.com](http://sharedhat.com)"
+
 description: "This plugin beautifully arranges the image. Moreover, the image is smoothly moved."
+
+authors: "[Noritaka Horio](http://sharedhat.com)"
 
 author: holyshared
 
 category: Interface
 
 tags: [animation, thumnail, gallery]
+
+sources:
+  - "Source/Exhibition.js"
+  - "Source/Exhibition.Horizontal.js"
+  - "Source/Exhibition.Vertical.js"
+
+license: "[MIT License](http://sharedhat.com/mit-license.txt)"
+
+copyright: "&copy; [Noritaka Horio](http://sharedhat.com)"
 
 current: 1.0.1
 
