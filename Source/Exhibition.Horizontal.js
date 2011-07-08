@@ -2,7 +2,7 @@
 ---
 name: Exhibition.Horizontal
 
-description: The image lines up beautifully and is displayed.
+description: The image is arranged horizontally and beautifully and displayed.
 
 license: MIT-style
 
@@ -13,7 +13,7 @@ requires:
   - Core/Fx.Tween
   - Exhibition/Exhibition
 
-provides: [Exhibition.Horizontal]
+provides: Exhibition.Horizontal
 ...
 */
 

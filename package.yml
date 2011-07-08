@@ -1,4 +1,4 @@
-name: Exhibition
+name: "Exhibition"
 
 exports: "exhibition.js"
 
